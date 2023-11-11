@@ -1,9 +1,17 @@
-import Image from 'next/image'
+import CardList from "../components/CardList";
+import CategoryList from "../components/CategoryList";
+import Featured from "../components/Featured";
+import Menu from "../components/Menu";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        Hello
+    <main className="">
+      <Featured />
+      <CategoryList />
+      <div className="flex">
+        <CardList />
+        <Menu />
+      </div>
     </main>
-  )
+  );
 }
