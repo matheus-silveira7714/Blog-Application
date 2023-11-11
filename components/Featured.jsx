@@ -15,7 +15,7 @@ const Featured = () => {
           <h1 className="text-xl lg:text-3xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </h1>
-          <p className=" text-base lg:text-xl text-softTextColor">
+          <p className=" text-base lg:text-xl softText">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos earum
             nihil optio autem, ipsum perferendis omnis aliquid saepe at, quod
             unde, sit quam! Ex quasi tempora ab placeat quidem odio?
