@@ -14,8 +14,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Provider>
-          <div className="min-h-screen bg-[var(--bg)] text-[var(--textColor)]">
-            <div className="mx-auto lg:max-w-6xl xl:max-w-7xl px-4 lg:px-10">
+          <div className="min-h-screen bgColor textColor ">
+            <div className="mx-auto lg:max-w-6xl xl:max-w-7xl px-4 lg:px-10 pt-16 sm:pt-20">
               <Navbar />
               {children}
               <Footer />

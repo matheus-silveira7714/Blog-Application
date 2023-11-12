@@ -3,7 +3,7 @@ import React from 'react'
 
 const MenuCategories = () => {
   return (
-    <div>
+    <div className='hidden sm:block'>
       <h2 className="font-normal mt-4 text-softTextColor ">
         Discover by topic
       </h2>
