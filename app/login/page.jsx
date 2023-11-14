@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -7,6 +8,7 @@ const page = () => {
         <div className=" px-8 lg:px-10 py-4 rounded-lg bg-[#ff5555] cursor-pointer font-medium sm:font-bold">Sign in with Google</div>
         <div className=" px-8 lg:px-10 py-4 rounded-lg bg-[#111] cursor-pointer font-medium sm:font-bold">Sign in with Github</div>
         <div className=" px-8 lg:px-10 py-4 rounded-lg bg-[#087bea] cursor-pointer font-medium sm:font-bold">Sign in with Facebook</div>
+        <Link href='/write'>Write a blog</Link>
       </div>
     </div>
   );

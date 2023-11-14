@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import SocialMedia from "./SocialMedia";
 
 const Footer = () => {
   return (
@@ -12,7 +13,7 @@ const Footer = () => {
             alt=""
             width={50}
             height={50}
-            className="object-cover"
+            className="object-cover filter saturate-100 contrast-100"
           />
           <h1>VBlog</h1>
         </div>
@@ -20,13 +21,10 @@ const Footer = () => {
           Lorem ipsum dolor sit, amet consectetur adipisicing elit.
           Reprehenderit suscipit ea debitis molestiae, esse a, aspernatur,
           consequuntur magni inventore nam officiis tempore corporis voluptatum
-          vel ratione accusantium optio ex. Aut?
+          vel ratione accusantium optio ex.
         </p>
-        <div className="flex gap-3 justify-center ">
-          <Image src="/facebook.png" alt="facebook" width={24} height={24} />
-          <Image src="/instagram.png" alt="instagram" width={24} height={24} />
-          <Image src="/linkedin.png" alt="linkedin" width={24} height={24} />
-          <Image src="/youtube.png" alt="youtube" width={24} height={24} />
+        <div className="flex justify-center ">
+          <SocialMedia/>
         </div>
       </div>
       <div className="flex flex-1 gap-10 md:gap-16 justify-center">

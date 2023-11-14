@@ -5,10 +5,10 @@ import {FaBars} from 'react-icons/fa'
 
 const AuthLinks = () => {
   const [open, setOpen] = useState(false)
-  const status = "notauthenticated";
+  const [status, setStatus] = useState(false)
   return (
     <>
-      {status === "notauthenticated" ? (
+      {!status ? (
         <Link className="hidden md:block" href="/login">Login</Link>
       ) : (
         <>
@@ -20,11 +20,11 @@ const AuthLinks = () => {
         <FaBars/>
       </div>
       {open && (
-        <div className="md:hidden flex flex-col absolute top-20 left-0 h-[calc(100vh-80px)] w-full items-center justify-center gap-10 text-3xl bgColor "> 
+        <div className="md:hidden flex flex-col absolute top-16 sm:top-20 left-0 h-[calc(100vh-64px)] sm:h-[calc(100vh-80px)] w-full items-center justify-center gap-10 text-3xl bgColor "> 
         <Link className='' href='/'>Home</Link>
         <Link className='' href='/about'>About</Link>
         <Link className='' href='/contact'>Contact</Link>
-        { status === "notauthenticated" ? (
+        { !status ? (
           <Link href="/login">Login</Link>
           ) : (
           <>
