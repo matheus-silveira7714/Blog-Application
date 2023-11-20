@@ -7,14 +7,14 @@ import SocialMedia from "./SocialMedia";
 
 const Navbar = () => {
   return (
-    <div className=" z-40 bgColor fixed inset-0 px-4 lg:px-10 h-16 sm:h-20 w-full flex items-center justify-between mx-auto lg:max-w-6xl xl:max-w-7xl">
+    <div className=" z-40 bgColor fixed inset-0 px-4 lg:px-10 h-20 w-full flex items-center justify-between mx-auto lg:max-w-6xl xl:max-w-7xl">
       <div className=" hidden md:flex gap-4 flex-1">
         <SocialMedia />
       </div>
-      <div className="flex-1 text-left md:text-center font-bold sm:text-2xl text-xl">
+      <Link href='/' className="flex-1 text-left md:text-center font-bold text-2xl">
         VBlog
-      </div>
-      <div className="flex gap-4 flex-1 justify-between items-center text-xl sm:text-lg">
+      </Link>
+      <div className="flex gap-4 flex-1 justify-between items-center font-medium text-xl sm:text-lg">
         <ThemeToggle />
         <Link className="hidden md:block" href="/">
           Home

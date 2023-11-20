@@ -20,25 +20,22 @@ const page = () => {
       />
       <div className="flex flex-col gap-5 relative">
         <button
-          className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 border-[var(--softTextColor)] cursor-pointer"
+          className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"
           onClick={() => setOpen(!open)}
         >
-          <FaPlus/>
+          <FaPlus />
         </button>
         {open && (
           <div className="flex items-center justify-center gap-4 bgColor absolute left-12">
-            <button className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 border-[var(--softTextColor)] cursor-pointer">
-              <PiVideoBold size={20}/>
-            </button>
-            <button className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 border-[var(--softTextColor)] cursor-pointer">
-              <MdOutlineFileUpload size={22}/>
-            </button>
-            <button className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 border-[var(--softTextColor)] cursor-pointer">
-              <FaImage size={16}/>
-            </button>
+            <input id='imageUpload' type="file" accept="image/*" className="hidden"/>
+              <label htmlFor="imageUpload" className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"><FaImage size={16} /></label>
+            <input id='videoUpload' type="file" accept="video/*" className="hidden"/>
+              <label htmlFor="videoUpload" className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"><PiVideoBold size={20} /></label>
+            <input id='fileUpload' type="file" className="hidden"/>
+              <label htmlFor="fileUpload" className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"><MdOutlineFileUpload size={22} /></label>
           </div>
         )}
-        <div className="w-[100%] flex-1">
+        <div className="w-[100%] flex-1 textColor">
           <ReactQuill
             theme="snow"
             value={value}

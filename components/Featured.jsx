@@ -10,8 +10,8 @@ const Featured = () => {
       </h1>
       <Link href='/vvnv'>
         <div className=" md:mt-5 lg:mt-10 flex flex-col md:flex-row w-full items-center gap-4 lg:gap-10">
-          <div className="flex-1 md:h-[275px] lg:h-[350px] xl:h-[375px] relative">
-            <Image src="/p1.jpeg" alt="" fill className="object-cover w-full" />
+          <div className="flex-1 md:h-[275px] lg:h-[350px] xl:h-[375px] relative ">
+            <Image src="/p1.jpeg" alt="" fill className="object-cover w-full h-full rounded-xl" />
           </div>
           <div className="flex-1 flex flex-col gap-2 lg:gap-6">
             <h1 className="text-3xl sm:text-4xl md:text-2xl lg:text-4xl">
@@ -22,7 +22,7 @@ const Featured = () => {
               nihil optio autem, ipsum perferendis omnis aliquid saepe at, quod
               unde, sit quam! Ex quasi tempora ab placeat quidem odio?
             </p>
-            <button className=" rounded-xl mt-2 px-4 py-2 w-fit lg:px-5 lg:py-3 softBg">
+            <button className=" rounded-lg mt-2 px-4 py-2 w-fit lg:px-5 lg:py-3 softBg">
               Read more
             </button>
           </div>

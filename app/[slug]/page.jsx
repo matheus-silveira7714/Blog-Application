@@ -24,12 +24,12 @@ const page = () => {
             </div>
             <div className="flex flex-col softText">
               <span className="font-bold">John Doe</span>
-              <span>01.01.2024</span>
+              <span className="text-sm">01.01.2024</span>
             </div>
           </div>
         </div>
         <div className="flex-1 md:h-[275px] lg:h-[325px] relative">
-          <Image src="/p1.jpeg" alt="" fill className="object-cover w-full" />
+          <Image src="/p1.jpeg" alt="" fill className="object-cover w-full rounded-xl" />
         </div>
       </div>
       <div className="flex gap-5 mt-4 lg:mt-0">

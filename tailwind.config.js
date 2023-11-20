@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         bgColor: "white",
         textColor: "black",
-        softBg: "f0f0f0",
+        softBg: "#f0f0f0",
         softTextColor: " #626262",
         darkBgColor: "#0f172a",
         darkTextColor: "#ddd",

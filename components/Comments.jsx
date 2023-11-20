@@ -14,7 +14,7 @@ const Comments = () => {
             id=""
             cols="30"
             rows="2"
-            className="flex-1 max-w-[75%] p-2 softBg rounded-sm resize-none"
+            className="flex-1 max-w-[75%] p-2 softBg rounded-sm resize-none items-center outline-none"
           />
           <button className="px-4 lg:px-6 py-2 font-semibold cursor-pointer rounded-md text-white bg-cyan-700">
             Post
@@ -39,7 +39,7 @@ const Comments = () => {
             </div>
             <div className="flex flex-col softText">
               <span className="font-bold">John Doe</span>
-              <span>01.01.2024</span>
+              <span className="text-sm">01.01.2024</span>
             </div>
           </div>
           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -57,7 +57,7 @@ const Comments = () => {
             </div>
             <div className="flex flex-col softText">
               <span className="font-bold">John Doe</span>
-              <span>01.01.2024</span>
+              <span className="text-sm">01.01.2024</span>
             </div>
           </div>
           <p>
@@ -80,7 +80,7 @@ const Comments = () => {
             </div>
             <div className="flex flex-col softText">
               <span className="font-bold">John Doe</span>
-              <span>01.01.2024</span>
+              <span className="text-sm">01.01.2024</span>
             </div>
           </div>
           <p>
@@ -102,7 +102,7 @@ const Comments = () => {
             </div>
             <div className="flex flex-col softText">
               <span className="font-bold">John Doe</span>
-              <span>01.01.2024</span>
+              <span className="text-sm">01.01.2024</span>
             </div>
           </div>
           <p>

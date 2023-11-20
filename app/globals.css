@@ -42,8 +42,16 @@ a {
   background-color: var(--softTextColor);
 }
 
+.ql-toolbar {
+  border: 2px solid var(--softTextColor) !important;
+  border-bottom: 0px !important;
+  border-radius: 5px 5px 0px 0px;
+}
+
 .ql-container {
   font-size: 28px !important;
+  border: 2px solid var(--softTextColor) !important;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .quill > .ql-container > .ql-editor.ql-blank::before {
@@ -86,5 +94,9 @@ a {
 
   .softText {
     color: var(--softTextColor);
+  }
+
+  .softBorder {
+    border:2px solid var(--softTextColor);
   }
 }

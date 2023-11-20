@@ -17,10 +17,10 @@ const AuthLinks = () => {
         </>
       )}
       <div className="cursor-pointer md:hidden" onClick={()=>setOpen(!open)}>
-        <FaBars/>
+        <FaBars size={22}/>
       </div>
       {open && (
-        <div className="md:hidden flex flex-col absolute top-16 sm:top-20 left-0 h-[calc(100vh-64px)] sm:h-[calc(100vh-80px)] w-full items-center justify-center gap-10 text-3xl bgColor "> 
+        <div onClick={()=>setOpen(!open)} className="md:hidden flex flex-col absolute top-20 left-0 h-[calc(100vh-80px)] w-full items-center justify-center gap-10 text-3xl bgColor "> 
         <Link className='' href='/'>Home</Link>
         <Link className='' href='/about'>About</Link>
         <Link className='' href='/contact'>Contact</Link>
