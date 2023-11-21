@@ -1,20 +1,21 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import {FaBars} from 'react-icons/fa'
 
 const AuthLinks = () => {
+  const {status} = useSession()
   const [open, setOpen] = useState(false)
-  const [status, setStatus] = useState(false)
   return (
     <>
-      {!status ? (
-        <Link className="hidden md:block" href="/login">Login</Link>
-      ) : (
+      {status === "authenticated" ? (
         <>
           <Link className="hidden md:block" href="/write">Write</Link>
-          <span className="hidden md:block cursor-pointer">Logout</span>
+          <span onClick={signOut} className="hidden md:block cursor-pointer">Logout</span>
         </>
+      ) : (
+        <Link className="hidden md:block" href="/login">Login</Link>
       )}
       <div className="cursor-pointer md:hidden" onClick={()=>setOpen(!open)}>
         <FaBars size={22}/>
@@ -24,13 +25,13 @@ const AuthLinks = () => {
         <Link className='' href='/'>Home</Link>
         <Link className='' href='/about'>About</Link>
         <Link className='' href='/contact'>Contact</Link>
-        { !status ? (
-          <Link href="/login">Login</Link>
-          ) : (
+        { status === "authenticated" ? (
           <>
             <Link href="/write">Write</Link>
-            <span className="cursor-pointer">Logout</span>
+            <span onClick={signOut} className="cursor-pointer">Logout</span>
           </>
+          ) : (
+            <Link href="/login">Login</Link>
         )}
         </div>
       )}

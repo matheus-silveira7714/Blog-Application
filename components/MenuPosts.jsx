@@ -25,7 +25,7 @@ const MenuPosts = ({ withImage,title,subtitle }) => {
               Travel
             </span>
             <h3 className="font-medium text-sm md:text-xs lg:text-sm">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur, adipisicing .
             </h3>
             <div className="flex gap-2 text-xs">
               <span>John Doe</span>
@@ -50,7 +50,7 @@ const MenuPosts = ({ withImage,title,subtitle }) => {
               Culture
             </span>
             <h3 className="font-medium text-sm md:text-xs lg:text-sm">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur, adipisicing .
             </h3>
             <div className="flex gap-2 text-xs">
               <span>John Doe</span>
@@ -75,7 +75,7 @@ const MenuPosts = ({ withImage,title,subtitle }) => {
               Food
             </span>
             <h3 className="font-medium text-sm md:text-xs lg:text-sm">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur, adipisicing .
             </h3>
             <div className="flex gap-2 text-xs">
               <span>John Doe</span>
@@ -100,7 +100,7 @@ const MenuPosts = ({ withImage,title,subtitle }) => {
               Style
             </span>
             <h3 className="font-medium text-sm md:text-xs lg:text-sm">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur, adipisicing .
             </h3>
             <div className="flex gap-2 text-xs">
               <span>John Doe</span>
@@ -125,7 +125,7 @@ const MenuPosts = ({ withImage,title,subtitle }) => {
               Fashion
             </span>
             <h3 className="font-medium text-sm md:text-xs lg:text-sm">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur, adipisicing .
             </h3>
             <div className="flex gap-2 text-xs">
               <span>John Doe</span>
@@ -150,7 +150,7 @@ const MenuPosts = ({ withImage,title,subtitle }) => {
               Coding
             </span>
             <h3 className="font-medium text-sm md:text-xs lg:text-sm">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur, adipisicing .
             </h3>
             <div className="flex gap-2 text-xs">
               <span>John Doe</span>

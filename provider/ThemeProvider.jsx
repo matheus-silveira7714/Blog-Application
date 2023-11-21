@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "next-themes";
 
-const Provider = ({ children }) => {
+export const Provider = ({ children }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -13,5 +13,3 @@ const Provider = ({ children }) => {
 
   return <ThemeProvider attribute="class">{children}</ThemeProvider>;
 };
-
-export default Provider;

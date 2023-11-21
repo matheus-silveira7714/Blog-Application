@@ -9,7 +9,7 @@ const Featured = () => {
         <b>Hey, Vijay Kumar here!</b> Discover my stories and creative ideas.
       </h1>
       <Link href='/vvnv'>
-        <div className=" md:mt-5 lg:mt-10 flex flex-col md:flex-row w-full items-center gap-4 lg:gap-10">
+        <div className=" md:mt-5 lg:mt-10 flex flex-col md:flex-row w-full items-center gap-4 lg:gap-7">
           <div className="flex-1 md:h-[275px] lg:h-[350px] xl:h-[375px] relative ">
             <Image src="/p1.jpeg" alt="" fill className="object-cover w-full h-full rounded-xl" />
           </div>

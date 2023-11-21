@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import AuthLinks from "./AuthLinks";
@@ -11,7 +10,7 @@ const Navbar = () => {
       <div className=" hidden md:flex gap-4 flex-1">
         <SocialMedia />
       </div>
-      <Link href='/' className="flex-1 text-left md:text-center font-bold text-2xl">
+      <Link href="/" className="flex-1 text-left md:text-center font-bold text-2xl">
         VBlog
       </Link>
       <div className="flex gap-4 flex-1 justify-between items-center font-medium text-xl sm:text-lg">
