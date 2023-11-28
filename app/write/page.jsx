@@ -6,10 +6,22 @@ import { PiVideoBold } from "react-icons/pi";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const page = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+    const { status } = useSession();
+    const router = useRouter();
+
+    if (status === "loading") {
+      return <div className="h-[50vh] flex items-center justify-center font-bold">Loading...</div>;
+    }
+
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
 
   return (
     <div className="flex flex-col">

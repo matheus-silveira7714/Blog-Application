@@ -3,13 +3,14 @@ import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaFacebook, FaGithub } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa6";
 
 const page = () => {
   const { status } = useSession();
   const router = useRouter();
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <div className="h-[50vh] flex items-center justify-center font-bold">Loading...</div>;
   }
   
   if (status === "authenticated") {
@@ -39,9 +40,13 @@ const page = () => {
           <FaGithub size={22} />
           Sign in with Github
         </div>
-        <div onClick={()=>signIn('facebook')} className="flex gap-2 items-center px-6 py-4 rounded-lg bg-[#3b5998] cursor-pointer font-medium sm:font-bold text-white w-[250px] ">
+        {/* <div onClick={()=>signIn('facebook')} className="flex gap-2 items-center px-6 py-4 rounded-lg bg-[#3b5998] cursor-pointer font-medium sm:font-bold text-white w-[250px] ">
           <FaFacebook size={22} />
           Sign in with Facebook
+        </div> */}
+        <div onClick={()=>signIn('twitter')} className="flex gap-2 items-center px-6 py-4 rounded-lg bg-[#1DA1F2] cursor-pointer font-medium sm:font-bold text-white w-[250px] ">
+          <FaTwitter size={22} />
+          Sign in with Twitter
         </div>
       </div>
     </div>

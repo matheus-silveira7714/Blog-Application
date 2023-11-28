@@ -1,18 +1,18 @@
-'use client'
 import Menu from "@/components/Menu";
 import PostList from "@/components/PostList";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 
-const page = ({}) => {
-  const searchParams = useSearchParams()
-  const category = searchParams.get('cat')
+const page = ({ searchParams }) => {
+  const page = parseInt(searchParams.page) || 1;
+  const { cat } = searchParams || "";
 
   return (
-    <div>
-      <h1 className="bg-[#57c4ff31] p-2 text-center font-bold capitalize">{category} blogs</h1>
+    <div className="pt-7 lg:pt-3">
+      <h1 className={`p-2 text-center font-bold capitalize ${cat}`}>
+        {cat} blogs
+      </h1>
       <div className="flex flex-col md:flex-row gap-3 lg:gap-10 w-full">
-        <PostList />
+        <PostList page={page} cat={cat} />
         <Menu />
       </div>
     </div>
