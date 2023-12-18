@@ -11,7 +11,7 @@ const page = ({ searchParams }) => {
       <h1 className={`p-2 text-center font-bold capitalize ${cat}`}>
         {cat} blogs
       </h1>
-      <div className="flex flex-col md:flex-row gap-3 lg:gap-10 w-full">
+      <div className="flex flex-col md:flex-row gap-3 xl:gap-7 w-full">
         <PostList page={page} cat={cat} />
         <Menu />
       </div>

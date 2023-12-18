@@ -25,16 +25,16 @@ const SkillList = [
 const page = () => {
   return (
     <div className="mt-5 w-full h-full flex flex-col items-center justify-center textColor ">
-      <div className="w-full flex flex-col md:flex-row min-h-[70vh] md:min-h-[65vh] justify-center items-center">
+      <div className="w-full flex flex-col md:flex-row min-h-[70vh] md:min-h-[60vh] justify-center items-center">
         <div className="w-full sm:w-1/2 h-full flex justify-center">
           <Image
             src={about}
             alt="Vijay"
-            className="w-full h-full scale-90 pointer-events-none object-cover object-center rounded-full lg:w-4/5 lg:h-4/5 xl:h-2/3 xl:w-2/3 m-auto"
+            className="w-full h-full scale-90 pointer-events-none object-cover object-center rounded-full md:w-4/5 md:h-4/5 xl:h-2/3 xl:w-2/3 m-auto"
           />
         </div>
         <div className="w-full md:w-1/2 h-full flex flex-col text-left items-start justify-center textColor px-4">
-          <h2 className="font-semibold capitalize text-3xl sm:text-4xl xl:text-6xl">
+          <h2 className="font-semibold capitalize text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-6xl">
             Dream Big, Work Hard, Achieve More!
           </h2>
           <p className="font-noraml sm:font-medium mt-4 text-base sm:text-lg">

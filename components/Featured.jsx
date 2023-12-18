@@ -29,16 +29,16 @@ const Featured = async () => {
           />
         </div>
         <div className="flex-1">
-          <Link href={`/blogs/${blog.slug}`} className="flex flex-col gap-2 lg:gap-6">
-            <h1 className="text-3xl sm:text-4xl md:text-2xl lg:text-4xl mb-2">
+          <Link href={`/blogs/${blog.slug}`} className="flex flex-col gap-2 lg:gap-4 xl:gap-6">
+            <h1 className="text-3xl sm:text-4xl md:text-2xl lg:text-3xl xl:text-4xl mb-2">
               {blog.title}
             </h1>
             <div
-              className=" text-xl lg:text-2xl softText"
+              className=" text-xl xl:text-2xl softText"
               dangerouslySetInnerHTML={{
                 __html:
-                  blog.desc.length > 250
-                    ? blog.desc.substring(0, 250) + "..."
+                  blog.desc.length > 175
+                    ? blog.desc.substring(0, 175) + "..."
                     : blog.desc,
               }}
             />

@@ -11,7 +11,7 @@ export default function Home({ searchParams }) {
     <>
       <Featured />
       <CategoryList />
-      <div className="flex flex-col md:flex-row gap-3 lg:gap-10 w-full">
+      <div className="flex flex-col md:flex-row gap-3 xl:gap-7 w-full">
         <RecentPosts page={page} cat={cat} />
         <Menu />
       </div>

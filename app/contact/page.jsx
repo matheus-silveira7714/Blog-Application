@@ -45,26 +45,26 @@ const Contact = () => {
           </p>
         </div>
         <div className="flex flex-col gap-2 md:flex-row w-full justify-center mx-auto bgColor lg:gap-5 xl:gap-10 xl:px-20">
-          <div className=" w-full text-center lg:p-5 md:w-1/2 lg:w-4/6">
+          <div className=" w-full text-center lg:p-5 md:w-1/2 lg:w-4/6 textColor">
             <h1 className="hidden md:block text-2xl lg:text-3xl text-rose-600 mb-3 lg:mb-4 font-medium">
               Get In Touch
             </h1>
-            <div className="flex gap-3 items-center mb-4 md:gap-2 lg:gap-5">
-              <FaPhoneAlt className="textColor lg:text-base" />
-              <p className="textColor md:text-lg ">+91 9515643851</p>
+            <div className="flex gap-3 items-center mb-4 md:gap-2 lg:gap-4">
+              <FaPhoneAlt className="lg:text-base" />
+              <p className="lg:text-lg ">+91 9515643851</p>
             </div>
-            <div className="flex gap-3 items-center mb-4 md:gap-2 lg:gap-5">
-              <FaEnvelope className="textColor lg:text-base" />
+            <div className="flex gap-3 items-center mb-4 md:gap-2 lg:gap-4">
+              <FaEnvelope className="lg:text-base" />
               <a
                 href="mailto:talakolavijaykumar@gmail.com"
-                className="textColor md:text-lg"
+                className="lg:text-lg"
               >
                 talakolavijaykumar@gmail.com
               </a>
             </div>
-            <div className="flex gap-3 md:gap-2 lg:gap-5">
-              <FaMapMarkerAlt className="textColor text-3xl sm:text-2xl" />
-              <p className="leading-normal text-start textColor md:text-lg">
+            <div className="flex gap-2 lg:gap-4 items-start">
+              <FaMapMarkerAlt className="text-lg sm:text-xl mt-1" />
+              <p className="leading-normal text-start lg:text-lg">
                 Mallavaram , Guntur , Andhra Pradesh , India.
               </p>
             </div>

@@ -8,7 +8,7 @@ import useSWR from "swr";
 import Loading from "./Loading";
 
 const getData = async (url) => {
-  const res = await fetch(url, { revalidate: 600 });
+  const res = await fetch(url, { revalidate: 180 });
   const data = await res.json();
   if (!res.ok) throw Error(data.messaage);
   return data;
@@ -17,7 +17,7 @@ const getData = async (url) => {
 const Comments = ({ postSlug }) => {
   const { data: session, status } = useSession();
   const { data, mutate, isLoading } = useSWR(
-    ` ${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/comments?postSlug=${postSlug}`,
+    `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/comments?postSlug=${postSlug}`,
     getData
   );
 
