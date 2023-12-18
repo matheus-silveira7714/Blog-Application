@@ -63,7 +63,7 @@ model Category {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   slug  String  @unique
   title String
-  img   String?
+  image String?
   posts Post[]
 }
 
@@ -73,7 +73,7 @@ model Post {
   slug      String    @unique
   title     String
   desc      String
-  img       String
+  image     String
   views     Int       @default(0)
   catSlug   String
   cat       Category  @relation(fields: [catSlug], references: [slug])

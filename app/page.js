@@ -3,16 +3,18 @@ import Featured from "../components/Featured";
 import Menu from "../components/Menu";
 import RecentPosts from "../components/PostList";
 
-export default function Home({searchParams}) {
+export default function Home({ searchParams }) {
   const page = parseInt(searchParams.page) || 1;
+  const { cat } = searchParams || "";
+
   return (
-    <main className="">
+    <>
       <Featured />
       <CategoryList />
       <div className="flex flex-col md:flex-row gap-3 lg:gap-10 w-full">
-        <RecentPosts page={page} />
+        <RecentPosts page={page} cat={cat} />
         <Menu />
       </div>
-    </main>
+    </>
   );
 }

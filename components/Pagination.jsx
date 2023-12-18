@@ -10,7 +10,7 @@ const Pagination = ({ page, hasPrev, hasNext }) => {
         disabled={!hasPrev}
         onClick={() => router.push(`?page=${page - 1}`)}
         className={`w-24 p-2 lg:p-3 ${
-          !hasPrev ? " bg-[#dc143ca0] cursor-not-allowed" : "bg-rose-600 cursor-pointer"
+          !hasPrev ? " bg-[#dc143ca0] cursor-not-allowed text-slate-300" : "bg-rose-600 cursor-pointer"
         } `}
       >
         Previous
@@ -19,7 +19,7 @@ const Pagination = ({ page, hasPrev, hasNext }) => {
         disabled={!hasNext}
         onClick={() => router.push(`?page=${page + 1}`)}
         className={`w-24 p-2 lg:p-3 ${
-          !hasNext ? " bg-[#dc143ca0] cursor-not-allowed" : "bg-rose-600 cursor-pointer"
+          !hasNext ? " bg-[#dc143ca0] cursor-not-allowed text-slate-300" : "bg-rose-600 cursor-pointer"
         } `}
       >
         Next

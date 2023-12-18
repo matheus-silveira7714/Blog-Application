@@ -5,23 +5,26 @@ import SocialMedia from "./SocialMedia";
 
 const Footer = () => {
   return (
-    <div className=" bottom-0 mt-5 pb-4 lg:py-7 flex flex-col gap-4 sm:flex-row items-center justify-between ">
-      <div className="flex flex-1 gap-2 lg:gap-4 flex-col">
+    <div className=" bottom-0 mt-5 lg:mt-0 pb-4 lg:py-5 flex flex-col gap-4 sm:flex-row items-center justify-between ">
+      <div className="flex flex-1 gap-2 lg:gap-3 flex-col">
         <div className="flex gap-3 font-bold text-lg lg:text-2xl items-center">
           <Image
             src="/logo.png"
-            alt=""
+            alt="VBlog"
             width={50}
             height={50}
-            className="object-cover filter saturate-100 contrast-100"
+            className=" w-10 h-10 sm:w-12 sm:h-12 object-cover filter saturate-100 contrast-100"
           />
           <h1>VBlog</h1>
         </div>
-        <p className="text-sm lg:text-base softText">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Reprehenderit suscipit ea debitis molestiae, esse a, aspernatur,
-          consequuntur magni inventore nam officiis tempore corporis voluptatum
-          vel ratione accusantium optio ex.
+        <p className="text-base lg:text-lg softText">
+          Stay connected with us! Explore more articles, discover new insights
+          and join the conversation. Get the latest updates delivered straight
+          to you.
+          <br />
+          <span className=" flex justify-center items-center mt-1 font-semibold text-lg softText">
+            © VBlog {new Date().getFullYear()}. All rights reserved.
+          </span>
         </p>
         <div className="flex justify-center ">
           <SocialMedia />
@@ -31,8 +34,8 @@ const Footer = () => {
         <div className="flex flex-col items-center">
           <span className="font-bold textColor mb-1">Links</span>
           <Link href="/">Home</Link>
-          <Link href="/">Blog</Link>
           <Link href="/">About</Link>
+          <Link href="/">Blogs</Link>
           <Link href="/">Contact</Link>
         </div>
         <div className="flex  flex-col items-center">

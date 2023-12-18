@@ -1,30 +1,33 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 const getData = async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/categories`,{ cache:"no-store"})
-  if(!res.status === 500) throw Error("Failed to get categories")
-  return res.json()
-}
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/categories`, {
+    cache: "force-cache",
+  });
+  const data = res.json();
+  if (!res.ok) throw Error("Failed to get categories");
+  return data;
+};
 
 const CategoryList = async () => {
-  const data = await getData()
+  const data = await getData();
   return (
     <div>
-      <h1 className=" my-4 sm:my-6 lg:my-9 text-lg sm:text-2xl lg:text-3xl font-bold">
+      <h1 className=" my-4 sm:my-6 lg:my-9 text-xl sm:text-2xl lg:text-3xl font-bold">
         Popular Categories
       </h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 w-full gap-3 justify-between items-center">
         {data?.map((item) => (
           <Link
             key={item._id}
-            href={`/blog?cat=${item.slug}`}
+            href={`/blogs?cat=${item.slug}`}
             className={`flex gap-3 font-medium items-center capitalize h-16 w-full mx-auto px-2 py-1 lg:px-4 justify-center rounded-lg ${item.slug}`}
           >
-            {item.img && (
+            {item.image && (
               <Image
-                src={item.img}
+                src={item.image}
                 alt={item.title}
                 width={32}
                 height={32}
@@ -37,6 +40,6 @@ const CategoryList = async () => {
       </div>
     </div>
   );
-}
+};
 
-export default CategoryList
+export default CategoryList;

@@ -5,8 +5,9 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
       "platform-lookaside.fbsbx.com",
+      "firebasestorage.googleapis.com",
     ],
   },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -2,23 +2,17 @@ import { getAuthSession } from "@/utils/auth";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
+// Get All Comments
 export const GET = async (req) => {
   const { searchParams } = new URL(req.url);
-  const page = parseInt(searchParams.get("page"));
-  const cat = searchParams.get("cat");
-  const POST_PER_PAGE = 4;
-  const query = {
-    take: POST_PER_PAGE,
-    skip: parseInt(POST_PER_PAGE * (page - 1)),
-    where: { ...(cat && { catSlug: cat }) },
-    orderBy: { createdAt: "desc" },
-  };
+  const postSlug = searchParams.get("postSlug");
   try {
-    const [posts, count] = await prisma.$transaction([
-      prisma.post.findMany(query),
-      prisma.post.count({ where: query.where }),
-    ]);
-    return NextResponse.json({ posts, count }, { status: 200 });
+    const comments = await prisma.comment.findMany({
+      where: { ...(postSlug && { postSlug }) },
+      orderBy: { createdAt: "desc" },
+      include: { user: true },
+    });
+    return NextResponse.json(comments, { status: 200 });
   } catch (err) {
     console.log(err);
     return NextResponse.json(
@@ -28,7 +22,7 @@ export const GET = async (req) => {
   }
 };
 
-// Add Single Post
+// Add Single Comment
 export const POST = async (req) => {
   const session = await getAuthSession();
   if (!session) {
@@ -36,10 +30,10 @@ export const POST = async (req) => {
   }
   try {
     const body = await req.json();
-    const post = await prisma.post.create({
+    const comment = await prisma.comment.create({
       data: { ...body, userEmail: session.user.email },
     });
-    return NextResponse.json(post, { status: 200 });
+    return NextResponse.json(comment, { status: 200 });
   } catch (err) {
     console.log(err);
     return NextResponse.json(

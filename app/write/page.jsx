@@ -1,62 +1,179 @@
 "use client";
-import React, { useState } from "react";
-import { FaImage, FaPlus } from "react-icons/fa6";
-import { MdOutlineFileUpload } from "react-icons/md";
-import { PiVideoBold } from "react-icons/pi";
+import React, { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "@/utils/firebase";
+import Loading from "@/components/Loading";
+
+const getData = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`
+    );
+    if (!res.ok) throw new Error("Failed to get categories");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching categories:", error.message);
+    throw error;
+  }
+};
 
 const page = () => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-    const { status } = useSession();
-    const router = useRouter();
+  const [title, setTitle] = useState("");
+  const [slug, setSlug] = useState("");
+  const [desc, setDesc] = useState("");
+  const [image, setImage] = useState("");
+  const [data, setData] = useState([]);
+  const [catSlug, setCatSlug] = useState("");
+  const { status } = useSession();
+  const router = useRouter();
+  const [file, setFile] = useState(null);
 
-    if (status === "loading") {
-      return <div className="h-[50vh] flex items-center justify-center font-bold">Loading...</div>;
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getData();
+        setData(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error.message);
+      }
+    };
+    fetchData();
+  }, []);
 
-    if (status === "unauthenticated") {
-      router.push("/login");
+  const createSlug = (str) => {
+    return str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  };
+
+  useEffect(() => {
+    setSlug(createSlug(title));
+  }, [title]);
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  if (status === "unauthenticated") {
+    router.push("/login");
+  }
+
+  const handleSubmit = async () => {
+    try {
+      let imageUrl = image;
+      if (file) {
+        const storageRef = ref(storage, slug);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            "state_changed",
+            () => {},
+            reject,
+            async () => {
+              try {
+                const downloadURL = await getDownloadURL(
+                  uploadTask.snapshot.ref
+                );
+                imageUrl = downloadURL;
+                setImage(imageUrl); // Set the state after the async process
+                resolve();
+              } catch (error) {
+                reject(error);
+              }
+            }
+          );
+        });
+      }
+      const res = await fetch(`/api/posts`, {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          desc,
+          image: imageUrl,
+          slug: createSlug(title),
+          catSlug,
+        }),
+      });
+      if (res.ok) router.push("/");
+    } catch (error) {
+      console.error("Error handling form submission:", error);
     }
+  };
 
   return (
     <div className="flex flex-col">
       <input
         type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
         className="p-4 lg:p-6 text-2xl lg:text-3xl bg-transparent outline-none input mb-2"
       />
-      <div className="flex flex-col gap-5 relative">
-        <button
-          className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"
-          onClick={() => setOpen(!open)}
-        >
-          <FaPlus />
-        </button>
-        {open && (
-          <div className="flex items-center justify-center gap-4 bgColor absolute left-12">
-            <input id='imageUpload' type="file" accept="image/*" className="hidden"/>
-              <label htmlFor="imageUpload" className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"><FaImage size={16} /></label>
-            <input id='videoUpload' type="file" accept="video/*" className="hidden"/>
-              <label htmlFor="videoUpload" className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"><PiVideoBold size={20} /></label>
-            <input id='fileUpload' type="file" className="hidden"/>
-              <label htmlFor="fileUpload" className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"><MdOutlineFileUpload size={22} /></label>
+      <div className="flex flex-col gap-5 ">
+        <div className="flex items-center justify-between w-full gap-4 bgColor">
+          <input
+            onChange={(e) => setFile(e.target.files[0])}
+            id="imageUpload"
+            type="file"
+            accept="image/*"
+            className={"hidden"}
+          />
+          <div className="flex gap-3">
+            <label
+              htmlFor="imageUpload"
+              className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"
+            >
+              <FaPlus size={16} />
+            </label>
+            {file && <span>{file.name}</span>}
           </div>
-        )}
+          <select
+            className="border-gray-400 border-2 rounded-md p-2 textColor bg-transparent"
+            name="catSlug"
+            onChange={(e) => setCatSlug(e.target.value)}
+            defaultValue={"Select Category"}
+          >
+            <option
+              value="Select Category"
+              disabled
+              className="text-center p-4 textColor bgColor"
+            >
+              Select Category
+            </option>
+            {data?.map((item) => (
+              <option
+                key={item._id}
+                value={item.title}
+                className="text-center p-4 textColor bgColor capitalize"
+              >
+                {item.title}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="w-[100%] flex-1 textColor">
           <ReactQuill
             theme="snow"
-            value={value}
-            onChange={setValue}
+            value={desc}
+            onChange={setDesc}
             placeholder="Tell your story..."
           />
         </div>
       </div>
-      <button className=" mt-5 px-4 py-2 sm:w-fit sm:mx-auto sm:px-6 sm:font-medium rounded-3xl bg-[#1a8917] text-white ">
+      <button
+        onClick={() => handleSubmit()}
+        className=" mt-5 px-4 py-2 sm:w-fit sm:mx-auto sm:px-6 sm:font-medium rounded-3xl bg-[#1a8917] text-white "
+      >
         Publish
       </button>
     </div>
