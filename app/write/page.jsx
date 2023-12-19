@@ -117,7 +117,7 @@ const page = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
-        className="p-4 lg:p-6 text-2xl lg:text-3xl bg-transparent outline-none input mb-2"
+        className="p-4 lg:p-6 text-2xl lg:text-3xl bg-transparent outline-none input mb-3"
       />
       <div className="flex flex-col gap-5 ">
         <div className="flex items-center justify-between w-full gap-4 bgColor">
@@ -128,7 +128,7 @@ const page = () => {
             accept="image/*"
             className={"hidden"}
           />
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             <label
               htmlFor="imageUpload"
               className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"
