@@ -1,6 +1,7 @@
 import React from "react";
 import Pagination from "./Pagination";
 import Post from "./Post";
+import MenuPosts from "./MenuPosts";
 
 const getData = async (page, cat) => {
   const res = await fetch(
@@ -21,12 +22,15 @@ const PostList = async ({ page, cat}) => {
 
   return (
     <div className="flex-1 ">
-      <h1 className=" mt-4 mb-2 sm:mb-4 sm:mt-6 lg:mt-9 text-xl sm:text-2xl lg:text-3xl font-bold">
+      <h1 className=" mt-4 mb-4 sm:mb-4 sm:mt-6 lg:mt-9 text-xl sm:text-2xl lg:text-3xl font-bold">
         Recent Posts
       </h1>
       {posts?.length > 0 &&
-        posts?.map((item) => <Post item={item} key={item._id} />)}
+        posts?.map((item) => <Post item={item} key={item.id} />)}
       <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} />
+      <div className="mt-5 lg:hidden">
+        <MenuPosts title="Most Popular" subtitle="" withImage={true} />
+      </div>
     </div>
   );
 };

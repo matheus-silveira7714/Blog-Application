@@ -13,14 +13,12 @@ const MenuCategories = async () => {
 
   return (
     <div className="hidden sm:block">
-      <h2 className="font-normal mt-4 text-softTextColor ">
-        Discover by topic
-      </h2>
+      <h2 className="font-normal mt-4 softText">Discover by topic</h2>
       <h1 className="font-bold text-lg lg:text-xl">Categories</h1>
       <div className=" my-4 flex flex-wrap gap-3 capitalize w-full font-medium">
         {data?.map((item) => (
           <Link
-            key={item._id}
+            key={item.id}
             href={`/blogs?cat=${item.slug}`}
             className={`px-4 py-2 lg:px-4 rounded-lg ${item.slug}`}
           >

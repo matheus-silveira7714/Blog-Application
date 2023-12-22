@@ -69,7 +69,7 @@ const Comments = ({ postSlug }) => {
       <h1 className=" font-bold text-xl lg:text-2xl mb-3">Comments</h1>
       {status === "authenticated" ? (
         <>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 items-center">
             <textarea
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
@@ -96,7 +96,7 @@ const Comments = ({ postSlug }) => {
           <Loading />
         ) : data?.length > 0 ? (
           data?.map((item) => (
-            <div key={item._id} className="flex flex-col gap-1">
+            <div key={item.id} className="flex flex-col gap-1">
               <div className="flex gap-3 items-center">
                 <div className="h-10 w-fit">
                   <Image
@@ -110,13 +110,13 @@ const Comments = ({ postSlug }) => {
                 <div className="flex flex-col softText">
                   <span className="font-bold">{item.user?.name}</span>
                   <span className="text-sm">
-                    {formatDistanceToNowStrict(new Date(item?.createdAt))}
+                    {formatDistanceToNowStrict(new Date(item?.createdAt))} ago
                   </span>
                 </div>
               </div>
               <p>{item.desc}</p>
               {session?.user?.email === item.user?.email && (
-                <div className="w-fit flex gap-10 items-center text-sm text-start text-cyan-600 ">
+                <div className="w-fit flex gap-7 items-center text-sm text-start text-cyan-600 ">
                   <p
                     onClick={() => handleEdit(item)}
                     className="cursor-pointer"

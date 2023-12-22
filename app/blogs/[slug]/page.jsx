@@ -16,10 +16,10 @@ const page = async ({ params }) => {
   const { slug } = params;
   const blog = await getData(slug);
   return (
-    <div>
-      <div className="flex flex-col md:flex-row items-start gap-2 lg:gap-10 pt-5">
-        <div className="flex-1 flex flex-col gap-5 lg:gap-10">
-          <h1 className="text-3xl lg:text-4xl font-semibold">{blog.title}</h1>
+    <div className="w-full">
+      <div className="flex w-full flex-col-reverse sm:flex-row sm:items-start gap-4 lg:gap-10 pt-5">
+        <div className="flex-1 flex flex-col lg:flex-col gap-5 lg:gap-10">
+          <h1 className="text-3xl sm:text-2xl lg:text-4xl font-semibold">{blog.title}</h1>
           <div className="flex flex-col gap-4">
             <div className="flex gap-3 items-center">
               <div className="h-12 w-fit">
@@ -48,12 +48,13 @@ const page = async ({ params }) => {
             </div>
           </div>
         </div>
-        <div className="flex-1 md:h-[275px] lg:h-[325px] relative">
+        <div className="flex-1 mt-3 sm:mt-0 sm:h-[225px] lg:h-[325px] ">
           <Image
             src={blog.image}
             alt={blog.title}
-            fill
-            className="object-cover object-center h-full w-full rounded-xl"
+            width={275}
+            height={250}
+            className="object-cover h-full w-full rounded-xl"
           />
         </div>
       </div>

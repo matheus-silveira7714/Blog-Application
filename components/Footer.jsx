@@ -17,12 +17,12 @@ const Footer = () => {
           />
           <h1>VBlog</h1>
         </div>
-        <p className="text-base lg:text-lg softText">
+        <p className="text-base lg:text-lg textColor">
           Stay connected with us! Explore more articles, discover new insights
           and join the conversation. Get the latest updates delivered straight
           to you.
           <br />
-          <span className=" flex justify-center items-center mt-1 font-semibold text-lg softText">
+          <span className=" flex justify-center items-center mt-1 font-semibold lg:text-lg textColor">
             © VBlog {new Date().getFullYear()}. All rights reserved.
           </span>
         </p>
@@ -38,7 +38,7 @@ const Footer = () => {
           <Link href="/">Blogs</Link>
           <Link href="/">Contact</Link>
         </div>
-        <div className="flex  flex-col items-center">
+        <div className="flex flex-col items-center">
           <span className="font-bold textColor mb-1">Tags</span>
           <Link href="/">Style</Link>
           <Link href="/">Food</Link>

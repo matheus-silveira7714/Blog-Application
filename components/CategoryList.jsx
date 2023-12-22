@@ -21,7 +21,7 @@ const CategoryList = async () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 w-full gap-3 justify-between items-center">
         {data?.map((item) => (
           <Link
-            key={item._id}
+            key={item.id}
             href={`/blogs?cat=${item.slug}`}
             className={`flex gap-3 font-medium items-center capitalize h-16 w-full mx-auto px-2 py-1 lg:px-4 justify-center rounded-lg ${item.slug}`}
           >

@@ -152,7 +152,7 @@ const page = () => {
             </option>
             {data?.map((item) => (
               <option
-                key={item._id}
+                key={item.id}
                 value={item.title}
                 className="text-center p-4 textColor bgColor capitalize"
               >

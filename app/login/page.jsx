@@ -18,7 +18,7 @@ const page = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-5 lg:mt-8 sm:min-h-[50vh] ">
+    <div className="flex items-center justify-center mt-5 lg:mt-8 min-h-[45vh] sm:min-h-[50vh] ">
       <div className="flex justify-center items-center flex-col gap-7 softBg px-8 py-12 sm:py-16 sm:px-14 rounded-lg">
         <div
           onClick={() => signIn("google")}
