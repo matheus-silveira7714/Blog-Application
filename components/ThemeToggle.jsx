@@ -15,7 +15,7 @@ const ThemeToggle = () => {
   
   return (
     <div
-      className={`relative px-1 w-11 h-6 cursor-pointer flex justify-between items-center rounded-3xl ${ theme === "dark" ? "bg-white" : "bg-darkBgColor"}`}
+      className={`relative px-1 w-11 h-6 cursor-pointer flex justify-between items-center rounded-3xl ${ theme === "dark" ? "bg-white" : "bg-[#0f172a]"}`}
     >
       <Image src="/moon.png" alt="moon" width={16} height={16}  onClick={()=>setTheme("dark")}/>
       <div
