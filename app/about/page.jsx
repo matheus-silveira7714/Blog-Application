@@ -37,7 +37,7 @@ const page = () => {
           <h2 className="font-semibold capitalize text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-6xl">
             Dream Big, Work Hard, Achieve More!
           </h2>
-          <p className="font-noraml sm:font-medium mt-4 text-base sm:text-lg">
+          <p className="font-noraml sm:font-medium mt-4 text-lg">
             This mantra drives my ork as a passionate freelancer. I blend
             innovative technology with timeless design for captivating digital
             experiences. Inspired by nature Aad literature, I'm a perpetual

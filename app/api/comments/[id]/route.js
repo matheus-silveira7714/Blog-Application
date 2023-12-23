@@ -10,7 +10,7 @@ export const PUT = async (req, { params }) => {
   }
   try {
     const { id } = params;
-    const { desc } = await req.json();
+    const { desc, updatedAt } = await req.json();
     const existingComment = await prisma.comment.findFirst({
       where: { id, userEmail: session.user.email },
     });
@@ -22,7 +22,7 @@ export const PUT = async (req, { params }) => {
     }
     const updatedComment = await prisma.comment.update({
       where: { id },
-      data: { desc },
+      data: { desc, updatedAt },
     });
     return NextResponse.json(updatedComment, { status: 200 });
   } catch (err) {

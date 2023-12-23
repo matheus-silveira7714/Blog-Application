@@ -10,9 +10,9 @@ const Navbar = () => {
       <div className=" hidden md:flex gap-4 flex-1">
         <SocialMedia />
       </div>
-      <Link href="/" className="flex-1 text-left md:text-center font-bold text-2xl">
-        VBlog
-      </Link>
+      <div className="flex-1 text-left md:text-center font-bold text-2xl">
+        <Link href="/">VBlog</Link>
+      </div>
       <div className="flex gap-4 flex-1 justify-between items-center font-medium text-xl sm:text-lg">
         <ThemeToggle />
         <Link className="hidden md:block" href="/">

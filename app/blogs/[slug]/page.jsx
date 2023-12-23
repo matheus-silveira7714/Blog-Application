@@ -32,29 +32,29 @@ const page = async ({ params }) => {
                 />
               </div>
               <div className="flex flex-col softText">
-                <span className="font-bold">{blog?.user?.name}</span>
+                <span className="font-bold textColor">{blog?.user?.name}</span>
                 <span className="text-sm">
                   {format(new Date(blog?.createdAt), "dd MMMM, yyyy")}
                 </span>
               </div>
             </div>
             <div className="flex items-center gap-10">
-            <span className="font-medium ">{blog?.views} views</span>
-            <span
-              className={`capitalize font-medium lg:text-lg w-fit rounded-full py-1 px-5 text-white popular-${blog.catSlug}`}
-            >
-              {blog.catSlug}
-            </span>
+              <span className="font-medium ">{blog?.views} views</span>
+              <span
+                className={`capitalize font-medium lg:text-lg w-fit rounded-full py-1 px-5 text-white popular-${blog.catSlug}`}
+              >
+                {blog.catSlug}
+              </span>
             </div>
           </div>
         </div>
-        <div className="flex-1 mt-3 sm:mt-0 sm:h-[225px] lg:h-[325px] ">
+        <div className="flex-1 mt-3 sm:mt-0 sm:h-[225px] lg:h-[325px] group overflow-hidden rounded-xl ">
           <Image
             src={blog.image}
             alt={blog.title}
             width={275}
             height={250}
-            className="object-cover h-full w-full rounded-xl"
+            className="object-cover object-center w-full h-full rounded-xl group-hover:scale-105 transition-all duration-500 ease-in cursor-pointer"
           />
         </div>
       </div>

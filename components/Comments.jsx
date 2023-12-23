@@ -47,7 +47,7 @@ const Comments = ({ postSlug }) => {
       const id = editingComment.id;
       await fetch(`${apiUrl}/${id}`, {
         method: "PUT",
-        body: JSON.stringify({ desc, postSlug }),
+        body: JSON.stringify({ desc, postSlug, updatedAt: new Date() }),
       });
       setEditingComment(null);
       setDesc("");
@@ -80,7 +80,7 @@ const Comments = ({ postSlug }) => {
             />
             <button
               onClick={editingComment ? handleUpdate : handleSubmit}
-              className={`px-4 lg:px-6 py-2 font-semibold rounded-md text-white bg-cyan-700 `}
+              className={`px-3 lg:px-6 py-2 font-semibold rounded-md text-white bg-cyan-700 `}
             >
               {editingComment ? "Update" : "Post"}
             </button>
@@ -102,15 +102,19 @@ const Comments = ({ postSlug }) => {
                   <Image
                     src={item.user?.image}
                     alt={item.user?.name}
-                    width={12}
-                    height={12}
-                    className="object-cover object-center border-2 border-gray-200 rounded-full contrast-100 w-10 h-10 "
+                    width={10}
+                    height={10}
+                    className="object-cover object-center border-2 border-white rounded-full contrast-100 w-10 h-10 "
                   />
                 </div>
                 <div className="flex flex-col softText">
-                  <span className="font-bold">{item.user?.name}</span>
+                  <span className="font-bold textColor">{item.user?.name}</span>
                   <span className="text-sm">
-                    {formatDistanceToNowStrict(new Date(item?.createdAt))} ago
+                    {item?.updatedAt
+                      ? "edited " +
+                        formatDistanceToNowStrict(new Date(item?.updatedAt))
+                      : formatDistanceToNowStrict(new Date(item?.createdAt))}
+                    &nbsp;ago
                   </span>
                 </div>
               </div>

@@ -120,7 +120,7 @@ const page = () => {
         className="p-4 lg:p-6 text-2xl lg:text-3xl bg-transparent outline-none input mb-3"
       />
       <div className="flex flex-col gap-5 ">
-        <div className="flex items-center justify-between w-full gap-4 bgColor">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-4 bgColor">
           <input
             onChange={(e) => setFile(e.target.files[0])}
             id="imageUpload"
@@ -128,17 +128,17 @@ const page = () => {
             accept="image/*"
             className={"hidden"}
           />
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center truncate">
             <label
               htmlFor="imageUpload"
               className="flex items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-transparent border-2 cursor-pointer softBorder"
             >
               <FaPlus size={16} />
             </label>
-            {file && <span>{file.name}</span>}
+            {file && <span className="truncate flex-1">{file.name}</span>}
           </div>
           <select
-            className="border-gray-400 border-2 rounded-md p-2 textColor bg-transparent"
+            className="softBorder border-2 rounded-md p-2 textColor bg-transparent sm:w-fit"
             name="catSlug"
             onChange={(e) => setCatSlug(e.target.value)}
             defaultValue={"Select Category"}
