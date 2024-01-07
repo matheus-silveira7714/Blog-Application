@@ -9,6 +9,21 @@ import "react-toastify/dist/ReactToastify.css";
 export const metadata = {
   title: "Blog App",
   description: "The best blog app",
+  openGraph: {
+    title: "Blog App",
+    description: "The best blog app",
+    url: process.env.NEXTAUTH_URL,
+    type: "website",
+    authors: ["Vijay Kumar"],
+    siteName: "Blog App",
+    images: ["/blog-app.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog App",
+    description: "The best blog app",
+    images: ["/blog-app.png"],
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -1,14 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 
 const getData = async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/featured`, {
-    revalidate: 180,
-  });
-  if (!res.ok) throw new Error("Failed to get featured post");
-  const data = res.json();
-  return data;
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/featured`, {
+      revalidate: 180,
+    });
+    if (!res.ok) toast.error("Failed to get featured post");
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching featured post:", error.message);
+    toast.error("Failed to get featured post");
+  }
 };
 
 const Featured = async () => {
@@ -30,7 +35,10 @@ const Featured = async () => {
           />
         </div>
         <div className="flex-1">
-          <Link href={`/blogs/${blog.slug}`} className="flex flex-col gap-2 lg:gap-4 xl:gap-6">
+          <Link
+            href={`/blogs/${blog.slug}`}
+            className="flex flex-col gap-2 lg:gap-4 xl:gap-6"
+          >
             <h1 className="text-2xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-medium">
               {blog.title}
             </h1>

@@ -1,15 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 
 const getData = async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/categories`, {
-    cache: "force-cache",
-  });
-  const data = res.json();
-  if (!res.ok) throw Error("Failed to get categories");
-  return data;
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/categories`, {
+      cache: "force-cache",
+    });
+    if (!res.ok) toast.error("Failed to get categories");
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching categories:", error.message);
+    toast.error("Failed to get categories");
+  }
 };
+
 
 const CategoryList = async () => {
   const data = await getData();

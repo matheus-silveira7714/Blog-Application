@@ -6,12 +6,17 @@ import Link from "next/link";
 import React, { useState } from "react";
 import useSWR from "swr";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
 
 const getData = async (url) => {
-  const res = await fetch(url, { revalidate: 180 });
-  const data = await res.json();
-  if (!res.ok) throw Error(data.messaage);
-  return data;
+  try {
+    const res = await fetch(url, { revalidate: 180 });
+    if (!res.ok) toast.error("Failed to get posts");
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching posts:", error.message);
+    toast.error("Failed to get posts");
+  }
 };
 
 const Comments = ({ postSlug }) => {
@@ -108,7 +113,9 @@ const Comments = ({ postSlug }) => {
                   />
                 </div>
                 <div className="flex flex-col softText">
-                  <span className="font-medium textColor">{item.user?.name}</span>
+                  <span className="font-medium textColor">
+                    {item.user?.name}
+                  </span>
                   <span className="text-sm">
                     {item?.updatedAt
                       ? "edited " +

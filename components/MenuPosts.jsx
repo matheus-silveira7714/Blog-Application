@@ -2,14 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 const getData = async () => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/popular`, {
-    revalidate: 180,
-  });
-  const data = res.json();
-  if (!res.ok) throw new Error("Failed to get featured post");
-  return data;
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/popular`, {
+      revalidate: 180,
+    });
+    if (!res.ok) toast.error("Failed to get featured post");
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching featured post:", error.message);
+    toast.error("Failed to get featured post");
+  }
 };
 
 const MenuPosts = async ({ withImage, title, subtitle }) => {
