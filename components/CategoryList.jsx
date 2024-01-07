@@ -19,7 +19,7 @@ const CategoryList = async () => {
         Popular Categories
       </h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 w-full gap-3 justify-between items-center">
-        {data?.map((item) => (
+        {data?.length>0 && data?.map((item) => (
           <Link
             key={item.id}
             href={`/blogs?cat=${item.slug}`}

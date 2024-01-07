@@ -69,7 +69,7 @@ const Comments = ({ postSlug }) => {
       <h1 className=" font-bold text-xl lg:text-2xl mb-3">Comments</h1>
       {status === "authenticated" ? (
         <>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 lg:gap-4 items-center">
             <textarea
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
@@ -108,7 +108,7 @@ const Comments = ({ postSlug }) => {
                   />
                 </div>
                 <div className="flex flex-col softText">
-                  <span className="font-bold textColor">{item.user?.name}</span>
+                  <span className="font-medium textColor">{item.user?.name}</span>
                   <span className="text-sm">
                     {item?.updatedAt
                       ? "edited " +

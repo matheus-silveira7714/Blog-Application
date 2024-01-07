@@ -150,7 +150,7 @@ const page = () => {
             >
               Select Category
             </option>
-            {data?.map((item) => (
+            {data?.length>0 && data?.map((item) => (
               <option
                 key={item.id}
                 value={item.title}

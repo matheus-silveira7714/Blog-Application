@@ -16,7 +16,7 @@ const MenuCategories = async () => {
       <h2 className="font-normal mt-4 softText">Discover by topic</h2>
       <h1 className="font-bold text-lg lg:text-xl">Categories</h1>
       <div className=" my-4 flex flex-wrap gap-3 capitalize w-full font-medium">
-        {data?.map((item) => (
+        {data?.length>0 && data?.map((item) => (
           <Link
             key={item.id}
             href={`/blogs?cat=${item.slug}`}
