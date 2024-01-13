@@ -6,16 +6,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 import useSWR from "swr";
 import Loading from "./Loading";
-import { toast } from "react-toastify";
 
 const getData = async (url) => {
   try {
     const res = await fetch(url, { revalidate: 180 });
-    if (!res.ok) toast.error("Failed to get posts");
-    return res.json();
+    const data = await res.json();
+    if (res.ok) return data;
+    else throw new Error("Unable to load comments");
   } catch (error) {
-    console.error("Error fetching posts:", error.message);
-    toast.error("Failed to get posts");
+    throw new Error(error.message);
   }
 };
 
@@ -36,10 +35,14 @@ const Comments = ({ postSlug }) => {
         method: "POST",
         body: JSON.stringify({ desc, postSlug }),
       });
+      clearComment()
+    }
+  };
+
+  const clearComment = async () => {
       setEditingComment(null);
       setDesc("");
       mutate();
-    }
   };
 
   const handleEdit = async (comment) => {
@@ -54,9 +57,7 @@ const Comments = ({ postSlug }) => {
         method: "PUT",
         body: JSON.stringify({ desc, postSlug, updatedAt: new Date() }),
       });
-      setEditingComment(null);
-      setDesc("");
-      mutate();
+      clearComment();
     }
   };
 

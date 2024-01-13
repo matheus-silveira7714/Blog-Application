@@ -3,19 +3,17 @@ import Menu from "@/components/Menu";
 import ShareButton from "@/components/ShareButton";
 import { format } from "date-fns";
 import Image from "next/image";
-import Head from "next/head";
-import { toast } from "react-toastify";
 
 const getData = async (slug) => {
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${slug}`, {
-      cache: "no-store",
+      cache: "no-cache",
     });
-    if (!res.ok) toast.error("Failed to get posts");
-    return res.json();
+    const data = await res.json();
+    if (res.ok) return data;
+    else throw new Error(data);
   } catch (error) {
-    console.error("Error fetching posts:", error.message);
-    toast.error("Failed to get posts");
+    throw new Error(error.message);
   }
 };
 
@@ -31,13 +29,13 @@ export async function generateMetadata({ params }) {
       url: `${process.env.NEXTAUTH_URL}/blogs/${slug}`,
       type: "article",
       authors: [blog?.user?.name],
-      images: [blog?.image || "/blog-app.png"],
+      images: [blog?.image],
     },
     twitter: {
       card: "summary_large_image",
       title: blog?.title,
       description: blog?.desc || "Blog Application",
-      images: [blog?.image || "/blog-app.png"],
+      images: [blog?.image],
     },
   };
 }
@@ -47,10 +45,6 @@ const page = async ({ params }) => {
   const blog = await getData(slug);
   return (
     <>
-      <Head>
-        <title>{blog?.title}</title>
-        <meta name="description" content={blog?.desc} />
-      </Head>
       <div className="w-full">
         <div className="flex w-full flex-col-reverse sm:flex-row sm:items-center gap-4 lg:gap-4 xl:gap-10 pt-5">
           <div className="flex-1 flex flex-col lg:flex-col gap-5 sm:gap-3 lg:gap-7 xl:gap-10">
@@ -73,7 +67,7 @@ const page = async ({ params }) => {
                     {blog?.user?.name}
                   </span>
                   <span className="text-sm font-medium">
-                    Posted on
+                    Posted on &nbsp;
                     {format(new Date(blog?.createdAt), "dd MMMM, yyyy")}
                   </span>
                 </div>
@@ -93,8 +87,8 @@ const page = async ({ params }) => {
           </div>
           <div className="flex-1 mt-3 sm:mt-0 sm:h-[225px] lg:h-[325px] group overflow-hidden rounded-xl ">
             <Image
-              src={blog.image}
-              alt={blog.title}
+              src={blog?.image}
+              alt={blog?.title}
               width={275}
               height={250}
               className="object-cover object-center w-full h-full rounded-xl group-hover:scale-105 transition-all duration-500 ease-in cursor-pointer"
@@ -118,5 +112,4 @@ const page = async ({ params }) => {
   );
 };
 
-export { generateMetadata };
 export default page;

@@ -10,6 +10,8 @@ const Contact = () => {
   const formRef = useRef();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  let isAuthenticated = status === "authenticated";
+
   const handleSubmit = (e) => {
     e.preventDefault();
     emailjs
@@ -23,21 +25,20 @@ const Contact = () => {
         (result) => {
           toast.success("Message sent successfully");
           e.target.reset();
-          setName('')
-          setEmail('')
+          setName("");
+          setEmail("");
         },
         (error) => {
-          console.log(error.text);
           toast.error("Unable to send message!");
         }
       );
   };
 
   return (
-    <section className="text-gray-600 body-font mt-5 lg:mt-7 max-2xl:min-h-[50vh]">
+    <section className="text-gray-600 body-font max-2xl:min-h-[50vh]">
       <div className="mx-auto text-center">
-        <div className="flex flex-col text-center w-full mb-4 xl:mb-10">
-          <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 textColor">
+        <div className="flex flex-col text-center w-full mb-2 xl:mb-3">
+          <h1 className="sm:text-4xl text-3xl font-medium title-font textColor mb-1">
             Contact Me
           </h1>
           <p className="text-lg font-medium leading-relaxed text-rose-600 md:softText ">
@@ -76,9 +77,9 @@ const Contact = () => {
           >
             <div className="p-2 w-full">
               <input
-                value={ status === "authenticated" ? data?.user?.name || "" : name }
+                value={isAuthenticated ? data?.user?.name || "" : name}
                 onChange={(e) => setName(e.target.value)}
-                readOnly={status === "authenticated"}
+                readOnly={isAuthenticated}
                 required
                 placeholder="Name"
                 type="text"
@@ -88,9 +89,9 @@ const Contact = () => {
             </div>
             <div className="p-2 w-full">
               <input
-                value={ status === "authenticated" ? data?.user?.email || "" : email }
+                value={isAuthenticated ? data?.user?.email || "" : email}
                 onChange={(e) => setEmail(e.target.value)}
-                readOnly={status === "authenticated"}
+                readOnly={isAuthenticated}
                 required
                 placeholder="Email"
                 type="email"
@@ -106,8 +107,8 @@ const Contact = () => {
                 className="mb-1 w-full softBg rounded-md border border-gray-300  focus:softBg focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none textColor p-2 resize-none leading-6 transition-colors duration-200 ease-in-out"
               ></textarea>
             </div>
-            <div className="p-2 w-full">
-              <button className=" font-medium mx-auto my-3 text-white bg-rose-600 border-0 py-2 px-12 focus:outline-none hover:scale-110 transition duration-500 rounded-xl text-lg">
+            <div className=" w-full">
+              <button className=" font-medium mx-auto text-white bg-rose-600 border-0 py-2 px-12 focus:outline-none hover:scale-110 transition duration-500 rounded-xl text-lg">
                 Send
               </button>
             </div>

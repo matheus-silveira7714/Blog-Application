@@ -6,7 +6,7 @@ import { TiSocialLinkedin } from "react-icons/ti";
 const SocialMedia = () => {
   return (
     <div>
-      <div className="flex gap-4 flex-1">
+      <div className="flex gap-3 lg:gap-4 flex-1">
         <Link href="https://www.facebook.com/vijaykumarreddy.talakola.3">
           <FaFacebookF
             size={26}

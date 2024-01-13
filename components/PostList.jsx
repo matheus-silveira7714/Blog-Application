@@ -2,19 +2,15 @@ import React from "react";
 import Pagination from "./Pagination";
 import Post from "./Post";
 import MenuPosts from "./MenuPosts";
-import { toast } from "react-toastify";
 
 const getData = async (page, cat) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/posts?page=${page}&cat=${cat || ""}`,
-      { cache: "no-store" }
-    );
-    if (!res.ok) toast.error("Failed to get posts");
-    return res.json();
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts?page=${page}&cat=${cat || ""}`)
+    const data = await res.json();
+    if (res.ok) return data;
+    else throw new Error(data);
   } catch (error) {
-    console.error("Error fetching posts:", error.message);
-    toast.error("Failed to get posts");
+    throw new Error(error.message);
   }
 };
 
@@ -29,8 +25,10 @@ const PostList = async ({ page, cat }) => {
       <h1 className=" mt-4 mb-4 sm:mb-4 sm:mt-6 lg:mt-9 text-xl sm:text-2xl lg:text-3xl font-bold">
         Recent Posts
       </h1>
-      {posts?.length > 0 &&
-        posts?.map((item) => <Post item={item} key={item.id} />)}
+      {posts?.length > 0 ?
+        posts?.map((item) => <Post item={item} key={item.id} />) : (
+          <p className="font-semibold min-h-[50vh] flex w-full items-center justify-center">Unable to display posts</p>
+        )}
       <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} />
       <div className="mt-5 lg:hidden">
         <MenuPosts title="Most Popular" subtitle="" withImage={true} />

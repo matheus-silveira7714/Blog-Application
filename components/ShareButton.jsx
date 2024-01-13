@@ -14,15 +14,16 @@ import {
   XIcon,
 } from "react-share";
 import { IoMdShare } from "react-icons/io";
+import { usePathname } from "next/navigation";
 
 const ShareButton = ({}) => {
-  const url = window.location.href;
+  const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL+ usePathname();
 
   return (
     <>
-      <div className="flex flex-wrap gap-3 lg:gap-2 xl:gap-4 items-center cursor-pointer">
+      <div className="flex flex-wrap gap-3 lg:gap-2 xl:gap-4 items-center">
         <IoMdShare size={28} />
-        <div className="flex flex-wrap gap-2 items-center justify-center">
+        <div className="flex flex-wrap gap-2 items-center justify-center cursor-pointer">
           <FacebookShareButton url={url}>
             <FacebookIcon size={32} round={true} />
           </FacebookShareButton>

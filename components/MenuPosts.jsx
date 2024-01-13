@@ -2,18 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { format } from "date-fns";
-import { toast } from "react-toastify";
 
 const getData = async () => {
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/popular`, {
-      revalidate: 180,
+      revalidate: 1800,
     });
-    if (!res.ok) toast.error("Failed to get featured post");
-    return res.json();
+    const data = await res.json();
+    if (res.ok) return data;
+    else throw new Error("Unable to load popular posts");
   } catch (error) {
-    console.error("Error fetching featured post:", error.message);
-    toast.error("Failed to get featured post");
+    throw new Error(error.message);               
   }
 };
 
@@ -25,7 +24,7 @@ const MenuPosts = async ({ withImage, title, subtitle }) => {
       <h2 className="font-normal softText">{subtitle}</h2>
       <h1 className="font-bold text-xl">{title}</h1>
       <div className="flex flex-col gap-4 lg:gap-4 mt-4 lg:mt-3">
-        {blogs.length > 0 &&
+        {blogs.length > 0 ? (
           blogs?.map((item) => (
             <Link
               href={`/blogs/${item.slug}`}
@@ -35,7 +34,7 @@ const MenuPosts = async ({ withImage, title, subtitle }) => {
               {withImage && (
                 <div className="h-12 w-fit">
                   <Image
-                    src={item.image}
+                    src={item.image || "/blog.png"}
                     alt={item.title}
                     width={12}
                     height={12}
@@ -47,20 +46,28 @@ const MenuPosts = async ({ withImage, title, subtitle }) => {
                 <span
                   className={`capitalize text-xs px-3 py-1 md:font-normal lg:font-medium font-medium popular-${item.catSlug} w-fit rounded-2xl text-white`}
                 >
-                  {item.catSlug}
+                  {item.catSlug || "category"}
                 </span>
                 <h3 className="font-medium text-sm md:text-xs lg:text-sm truncate">
-                  {item.title}
+                  {item.title || "Title"}
                 </h3>
                 <div className="flex gap-2 text-xs">
                   <span>
-                    {item.user?.name} -
-                    {format(new Date(item?.createdAt), "dd/MM/yyyy")}
+                    {item.user?.name || "User"} -
+                    {format(
+                      new Date(item?.createdAt || Date.now()),
+                      "dd/MM/yyyy"
+                    )}
                   </span>
                 </div>
               </div>
             </Link>
-          ))}
+          ))
+        ) : (
+          <p className="min-h-[25vh] xl:min-h-[15vh] flex w-full items-center justify-center font-semibold">
+            Unable to display {title} posts
+          </p>
+        )}
       </div>
     </div>
   );

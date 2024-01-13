@@ -20,11 +20,7 @@ export const GET = async (req) => {
     ]);
     return NextResponse.json({ posts, count }, { status: 200 });
   } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };
 
@@ -32,7 +28,7 @@ export const GET = async (req) => {
 export const POST = async (req) => {
   const session = await getAuthSession();
   if (!session) {
-    return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
+    return NextResponse.json("Not Authenticated", { status: 401 });
   }
   try {
     const body = await req.json();
@@ -41,10 +37,6 @@ export const POST = async (req) => {
     });
     return NextResponse.json(post, { status: 200 });
   } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

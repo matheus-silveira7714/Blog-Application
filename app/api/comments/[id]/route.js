@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export const PUT = async (req, { params }) => {
   const session = await getAuthSession();
   if (!session) {
-    return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
+    return NextResponse.json("Not Authenticated", { status: 401 });
   }
   try {
     const { id } = params;
@@ -15,10 +15,7 @@ export const PUT = async (req, { params }) => {
       where: { id, userEmail: session.user.email },
     });
     if (!existingComment) {
-      return NextResponse.json(
-        { message: "Comment not found or unauthorized" },
-        { status: 404 }
-      );
+      return NextResponse.json("Comment not found!", { status: 404 });
     }
     const updatedComment = await prisma.comment.update({
       where: { id },
@@ -26,11 +23,7 @@ export const PUT = async (req, { params }) => {
     });
     return NextResponse.json(updatedComment, { status: 200 });
   } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };
 
@@ -38,7 +31,7 @@ export const PUT = async (req, { params }) => {
 export const DELETE = async (req, { params }) => {
   const session = await getAuthSession();
   if (!session) {
-    return NextResponse.json({ message: "Not Authenticated" }, { status: 401 });
+    return NextResponse.json("Not Authenticated", { status: 401 });
   }
   try {
     const { id } = params;
@@ -46,20 +39,11 @@ export const DELETE = async (req, { params }) => {
       where: { id, userEmail: session.user.email },
     });
     if (!existingComment) {
-      return NextResponse.json(
-        { message: "Comment not found or unauthorized" },
-        { status: 404 }
-      );
+      return NextResponse.json("Comment not found!", { status: 404 });
     }
-    const deletedComment = await prisma.comment.delete({
-      where: { id },
-    });
+    const deletedComment = await prisma.comment.delete({ where: { id } });
     return NextResponse.json(deletedComment, { status: 200 });
   } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

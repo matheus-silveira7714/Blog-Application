@@ -8,32 +8,31 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: "Blog App",
-  description: "The best blog app",
+  description: "Uncover fresh perspectives, stay informed and engage in lively discussions effortlessly.",
   openGraph: {
     title: "Blog App",
-    description: "The best blog app",
+    description: "Uncover fresh perspectives, stay informed and engage in lively discussions effortlessly.",
     url: process.env.NEXTAUTH_URL,
     type: "website",
     authors: ["Vijay Kumar"],
     siteName: "Blog App",
-    images: ["/blog-app.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog App",
-    description: "The best blog app",
-    images: ["/blog-app.png"],
+    description: "Uncover fresh perspectives, stay informed and engage in lively discussions effortlessly.",
   },
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en">
       <body>
         <AuthProvider>
           <ThemeProvider>
             <div className="min-h-screen bgColor textColor ">
-              <div className="mx-auto lg:max-w-6xl xl:max-w-7xl px-4 lg:px-10 pt-16 sm:pt-20">
+              <div className="mx-auto lg:max-w-6xl xl:max-w-7xl px-4 lg:px-10 pt-20">
                 <Navbar />
                 {children}
                 <ToastContainer position="top-right" />

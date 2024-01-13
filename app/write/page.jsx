@@ -9,16 +9,15 @@ import { useSession } from "next-auth/react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/utils/firebase";
 import Loading from "@/components/Loading";
-import { toast } from "react-toastify";
 
 const getData = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`);
-    if (!res.ok) toast.error("Failed to get categories");
-    return res.json();
+    const data = await res.json();
+    if (res.ok) return data;
+    else throw new Error("Unable to get categories");
   } catch (error) {
-    console.error("Error fetching categories:", error.message);
-    toast.error("Failed to get categories")
+    throw new Error(error.message);
   }
 };
 

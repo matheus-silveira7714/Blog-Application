@@ -2,7 +2,7 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 //Get Popular Blogs
-export const GET = async (req) => {
+export const GET = async () => {
   try {
     const posts = await prisma.post.findMany({
       take: 6,
@@ -11,10 +11,6 @@ export const GET = async (req) => {
     });
     return NextResponse.json(posts, { status: 200 });
   } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

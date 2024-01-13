@@ -6,10 +6,6 @@ export const GET = async () => {
     const categories = await prisma.category.findMany();
     return NextResponse.json(categories, { status: 200 });
   } catch (err) {
-    console.log(err);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

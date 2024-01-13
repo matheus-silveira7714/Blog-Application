@@ -24,7 +24,7 @@ const SkillList = [
 
 const page = () => {
   return (
-    <div className="mt-5 w-full h-full flex flex-col items-center justify-center textColor ">
+    <div className="w-full h-full flex flex-col items-center justify-center textColor ">
       <div className="w-full flex flex-col md:flex-row min-h-[70vh] md:min-h-[60vh] justify-center items-center">
         <div className="w-full sm:w-1/2 h-full flex justify-center">
           <Image
