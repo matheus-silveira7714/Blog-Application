@@ -9,9 +9,11 @@ import { useSession } from "next-auth/react";
 import Loading from "@/components/Loading";
 import { createSlug, handleFileUpload } from "@/utils/helper";
 
-const getData = async () => {
+const getAllCategories = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`
+    );
     const data = await res.json();
     if (res.ok) return data;
     else throw new Error("Unable to get categories");
@@ -20,28 +22,55 @@ const getData = async () => {
   }
 };
 
-const page = () => {
+const getPost = async (slug) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${slug}`,
+      { cache: "no-cache" }
+    );
+    const data = await res.json();
+    if (res.ok) return data;
+    else throw new Error(data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const page = ({ params }) => {
   const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState("");
-  const [data, setData] = useState([]);
+  const [slug, setSlug] = useState("");
   const [catSlug, setCatSlug] = useState("");
+  const [categories, setCategories] = useState([]);
   const { status } = useSession();
   const router = useRouter();
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCategories = async () => {
       try {
-        const data = await getData();
-        setData(data);
+        const cats = await getAllCategories();
+        setCategories(cats);
       } catch (error) {
         console.error("Error fetching categories:", error.message);
       }
     };
+    const fetchData = async () => {
+      try {
+        const blogData = await getPost(params.slug);
+        setTitle(blogData.title);
+        setDesc(blogData.desc);
+        setImage(blogData.image);
+        setSlug(blogData.slug);
+        setCatSlug(blogData.catSlug);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+    fetchCategories();
     fetchData();
-  }, []);
+  }, [params.slug]);
 
   useEffect(() => {
     setSlug(createSlug(title));
@@ -57,20 +86,25 @@ const page = () => {
 
   const handleSubmit = async () => {
     try {
-      const imageUrl = await handleFileUpload(file, slug);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts`, {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          desc,
-          image: imageUrl,
-          slug: createSlug(title),
-          catSlug,
-        }),
-      });
-      if (res.ok) router.push("/");
+      const imageUrl = file ? await handleFileUpload(file, slug) : image;
+      console.log({ title, desc, imageUrl, slug, catSlug });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${params.slug}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            title,
+            desc,
+            image: imageUrl,
+            slug: createSlug(title),
+            catSlug,
+            updatedAt: new Date(),
+          }),
+        }
+      );
+      if (res.ok) router.push("/profile");
     } catch (error) {
-      console.error("Error uploading blog:", error);
+      console.error("Error updating post:", error);
     }
   };
 
@@ -80,7 +114,7 @@ const page = () => {
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
+        placeholder={title}
         className="p-4 lg:p-6 text-2xl lg:text-3xl bg-transparent outline-none input mb-3"
       />
       <div className="flex flex-col gap-5 ">
@@ -105,7 +139,7 @@ const page = () => {
             className="softBorder border-2 rounded-md p-2 textColor bg-transparent sm:w-fit"
             name="catSlug"
             onChange={(e) => setCatSlug(e.target.value)}
-            defaultValue={"Select Category"}
+            defaultValue={catSlug}
           >
             <option
               value="Select Category"
@@ -114,15 +148,16 @@ const page = () => {
             >
               Select Category
             </option>
-            {data?.length>0 && data?.map((item) => (
-              <option
-                key={item.id}
-                value={item.title}
-                className="text-center p-4 textColor bgColor capitalize"
-              >
-                {item.title}
-              </option>
-            ))}
+            {categories?.length > 0 &&
+              categories?.map((item) => (
+                <option
+                  key={item.id}
+                  value={item.title}
+                  className="text-center p-4 textColor bgColor capitalize"
+                >
+                  {item.title}
+                </option>
+              ))}
           </select>
         </div>
         <div className="w-[100%] flex-1 textColor">
@@ -138,7 +173,7 @@ const page = () => {
         onClick={() => handleSubmit()}
         className=" mt-5 px-4 py-2 sm:w-fit sm:mx-auto sm:px-6 sm:font-medium rounded-3xl bg-[#1a8917] text-white "
       >
-        Publish
+        Update
       </button>
     </div>
   );

@@ -1,4 +1,3 @@
-import error from "@/app/error";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -6,7 +5,7 @@ import React from "react";
 const getData = async () => {
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/featured`, {
-      revalidate: 180,
+      next: { revalidate: 300 },
     });
     const data = await res.json();
     if (res.ok) return data;

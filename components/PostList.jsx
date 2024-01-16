@@ -5,7 +5,10 @@ import MenuPosts from "./MenuPosts";
 
 const getData = async (page, cat) => {
   try {
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts?page=${page}&cat=${cat || ""}`)
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/posts?page=${page}&cat=${cat || ""}`,
+      { next: { revalidate: 900 } }
+    );
     const data = await res.json();
     if (res.ok) return data;
     else throw new Error(data);

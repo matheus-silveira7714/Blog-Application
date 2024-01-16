@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { format } from "date-fns";
+import DeleteDialog from "./DeleteDialog";
 
-const BlogCard = ({ item }) => {
+const BlogCard = ({ item, open, handleOpen }) => {
   return (
     <div className="flex flex-col max-w-2xl gap-3 mb-5">
-      <div className="sm:h-[225px] lg:h-[250px] group overflow-hidden rounded-lg">
+      <div className="sm:h-[225px] lg:h-[225px] group overflow-hidden rounded-lg">
         <Image
           src={item?.image}
           alt={item?.title}
@@ -28,15 +29,15 @@ const BlogCard = ({ item }) => {
         </div>
         <Link href={`/blogs/${item?.slug}`}>
           <h1 className="text-xl md:text-base lg:text-2xl font-bold">
-            {item?.title?.substring(0, 50) + "..."}
+            {item?.title?.substring(0, 60) + "..."}
           </h1>
         </Link>
         <div
           className=" text-base lg:text-lg softText"
           dangerouslySetInnerHTML={{
             __html:
-              item?.desc?.length > 150
-                ? item?.desc?.substring(0, 150) + "..."
+              item?.desc?.length > 130
+                ? item?.desc?.substring(0, 130) + "..."
                 : item?.desc,
           }}
         />
@@ -45,10 +46,18 @@ const BlogCard = ({ item }) => {
             href={`/blogs/${item?.slug}`}
             className="py-[2px] w-fit text-sm lg:text-base border-b-2 border-rose-600 textColor"
           >
-            Read more
+            View
           </Link>
-          {/* Edit option */}
-          {/* delete option */}
+          <Link
+            href={`/blogs/${item.slug}/edit`}
+            className="text-green-500 px-2"
+          >
+            Edit
+          </Link>
+          <button className="text-red-500 px-2" onClick={handleOpen}>
+            Delete
+          </button>
+          {open && <DeleteDialog handleOpen={handleOpen} slug={item.slug} />}
         </div>
       </div>
     </div>

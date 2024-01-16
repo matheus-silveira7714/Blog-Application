@@ -18,6 +18,7 @@ export const GET = async () => {
     }
     return NextResponse.json(posts, { status: 200 });
   } catch (err) {
+    console.log(err.message);
     return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

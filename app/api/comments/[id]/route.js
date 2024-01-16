@@ -23,6 +23,7 @@ export const PUT = async (req, { params }) => {
     });
     return NextResponse.json(updatedComment, { status: 200 });
   } catch (err) {
+    console.log(err.message);
     return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };
@@ -41,9 +42,10 @@ export const DELETE = async (req, { params }) => {
     if (!existingComment) {
       return NextResponse.json("Comment not found!", { status: 404 });
     }
-    const deletedComment = await prisma.comment.delete({ where: { id } });
-    return NextResponse.json(deletedComment, { status: 200 });
+    await prisma.comment.delete({ where: { id } });
+    return NextResponse.json("Comment deleted successfully", { status: 200 });
   } catch (err) {
+    console.log(err.message);
     return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

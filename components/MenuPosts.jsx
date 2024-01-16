@@ -6,13 +6,13 @@ import { format } from "date-fns";
 const getData = async () => {
   try {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/popular`, {
-      revalidate: 1800,
+      next: { revalidate: 1800 },
     });
     const data = await res.json();
     if (res.ok) return data;
     else throw new Error("Unable to load popular posts");
   } catch (error) {
-    throw new Error(error.message);               
+    throw new Error(error.message);
   }
 };
 
@@ -34,7 +34,7 @@ const MenuPosts = async ({ withImage, title, subtitle }) => {
               {withImage && (
                 <div className="h-12 w-fit">
                   <Image
-                    src={item.image || "/blog.png"}
+                    src={item.image}
                     alt={item.title}
                     width={12}
                     height={12}
@@ -46,18 +46,15 @@ const MenuPosts = async ({ withImage, title, subtitle }) => {
                 <span
                   className={`capitalize text-xs px-3 py-1 md:font-normal lg:font-medium font-medium popular-${item.catSlug} w-fit rounded-2xl text-white`}
                 >
-                  {item.catSlug || "category"}
+                  {item.catSlug}
                 </span>
                 <h3 className="font-medium text-sm md:text-xs lg:text-sm truncate">
-                  {item.title || "Title"}
+                  {item.title}
                 </h3>
                 <div className="flex gap-2 text-xs">
                   <span>
-                    {item.user?.name || "User"} -
-                    {format(
-                      new Date(item?.createdAt || Date.now()),
-                      "dd/MM/yyyy"
-                    )}
+                    {item.user?.name} -
+                    {format(new Date(item?.createdAt), "dd/MM/yyyy")}
                   </span>
                 </div>
               </div>

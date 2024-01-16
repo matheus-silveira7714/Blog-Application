@@ -14,6 +14,7 @@ export const GET = async (req) => {
     });
     return NextResponse.json(comments, { status: 200 });
   } catch (err) {
+    console.log(err.message);
     return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };
@@ -31,6 +32,7 @@ export const POST = async (req) => {
     });
     return NextResponse.json(comment, { status: 200 });
   } catch (err) {
+    console.log(err.message);
     return NextResponse.json("Internal Server Error", { status: 500 });
   }
 };

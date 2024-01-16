@@ -9,7 +9,7 @@ import Loading from "./Loading";
 
 const getData = async (url) => {
   try {
-    const res = await fetch(url, { revalidate: 180 });
+    const res = await fetch(url, { next: { revalidate: 300 } });
     const data = await res.json();
     if (res.ok) return data;
     else throw new Error("Unable to load comments");
@@ -35,14 +35,14 @@ const Comments = ({ postSlug }) => {
         method: "POST",
         body: JSON.stringify({ desc, postSlug }),
       });
-      clearComment()
+      clearComment();
     }
   };
 
   const clearComment = async () => {
-      setEditingComment(null);
-      setDesc("");
-      mutate();
+    setEditingComment(null);
+    setDesc("");
+    mutate();
   };
 
   const handleEdit = async (comment) => {
@@ -129,18 +129,8 @@ const Comments = ({ postSlug }) => {
               <p>{item.desc}</p>
               {session?.user?.email === item.user?.email && (
                 <div className="w-fit flex gap-7 items-center text-sm text-start text-cyan-600 ">
-                  <p
-                    onClick={() => handleEdit(item)}
-                    className="cursor-pointer"
-                  >
-                    edit
-                  </p>
-                  <p
-                    onClick={() => handleDelete(item.id)}
-                    className="cursor-pointer"
-                  >
-                    delete
-                  </p>
+                  <button onClick={() => handleEdit(item)}>edit</button>
+                  <button onClick={() => handleDelete(item.id)}>delete</button>
                 </div>
               )}
             </div>

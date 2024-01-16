@@ -1,6 +1,7 @@
 import Comments from "@/components/Comments";
 import Menu from "@/components/Menu";
 import ShareButton from "@/components/ShareButton";
+import { getPlainText } from "@/utils/helper";
 import { format } from "date-fns";
 import Image from "next/image";
 
@@ -22,10 +23,10 @@ export async function generateMetadata({ params }) {
   const blog = await getData(slug);
   return {
     title: blog?.title,
-    description: blog?.desc || "Blog Application",
+    description: getPlainText(blog?.desc?.substring(0, 100) || ""),
     openGraph: {
       title: blog?.title,
-      description: blog?.desc,
+      description: blog?.desc?.substring(0, 100),
       url: `${process.env.NEXTAUTH_URL}/blogs/${slug}`,
       type: "article",
       authors: [blog?.user?.name],
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: blog?.title,
-      description: blog?.desc || "Blog Application",
+      description: getPlainText(blog?.desc?.substring(0, 100) || ""),
       images: [blog?.image],
     },
   };
@@ -46,7 +47,7 @@ const page = async ({ params }) => {
   return (
     <>
       <div className="w-full">
-        <div className="flex w-full flex-col-reverse sm:flex-row sm:items-center gap-4 lg:gap-4 xl:gap-10 pt-5">
+        <div className="flex w-full flex-col-reverse sm:flex-row sm:items-center gap-4 lg:gap-4 xl:gap-10 pt-2 lg:pt-4">
           <div className="flex-1 flex flex-col lg:flex-col gap-5 sm:gap-3 lg:gap-7 xl:gap-10">
             <h1 className="text-3xl sm:text-xl md:text-2xl lg:text-4xl font-semibold">
               {blog.title}
@@ -67,8 +68,9 @@ const page = async ({ params }) => {
                     {blog?.user?.name}
                   </span>
                   <span className="text-sm font-medium">
-                    Posted on &nbsp;
-                    {format(new Date(blog?.createdAt), "dd MMMM, yyyy")}
+                    {blog?.updatedAt
+                      ? "Edited on " + format(new Date(blog?.updatedAt), "dd MMMM, yyyy")
+                      : "Posted on " + format(new Date(blog?.createdAt), "dd MMMM, yyyy")}
                   </span>
                 </div>
               </div>
