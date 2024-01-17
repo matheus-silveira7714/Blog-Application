@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { format } from "date-fns";
-import DeleteDialog from "./DeleteDialog";
 import { MdDelete } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { BiSolidPencil } from "react-icons/bi";
 
-const BlogCard = ({ item, open, handleOpen }) => {
+const BlogCard = ({ item }) => {
   return (
     <div className="flex flex-col max-w-2xl gap-3 mb-5">
       <div className="sm:h-[225px] group overflow-hidden rounded-lg">
@@ -19,7 +18,7 @@ const BlogCard = ({ item, open, handleOpen }) => {
           className="object-cover object-center w-full h-full rounded-lg group-hover:scale-105 transition-all duration-500 ease-in cursor-pointer"
         />
       </div>
-      <div className="flex flex-col gap-1 lg:gap-3">
+      <div className="flex flex-col gap-2 lg:gap-3">
         <div className="flex items-center gap-1 text-sm md:text-xs lg:text-base softText">
           <span className="bg-rose-600 rounded-full h-2 w-2 mt-[2px] font-bold" />
           <span className="gap-2">
@@ -57,13 +56,12 @@ const BlogCard = ({ item, open, handleOpen }) => {
           >
             <BiSolidPencil size={20} /> Edit
           </Link>
-          <button
+          <Link
             className="text-red-500 flex gap-1 items-center"
-            onClick={handleOpen}
+            href={`/blogs/${item.slug}/delete`}
           >
             <MdDelete size={19} /> Delete
-          </button>
-          {open && <DeleteDialog handleOpen={handleOpen} slug={item.slug} />}
+          </Link>
         </div>
       </div>
     </div>

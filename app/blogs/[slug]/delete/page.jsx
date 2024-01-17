@@ -1,10 +1,24 @@
-import { deletePost } from "@/app/profile/page";
-import React from "react";
+"use client"
+import { deleteOldFile } from "@/utils/helper";
+import Link from "next/link";
 
-const DeleteDialog = ({ handleOpen, slug }) => {
+const deletePost = async (slug) => {
+  if (slug) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${slug}`,
+      { method: "DELETE" }
+    );
+    if (res.ok) {
+      await deleteOldFile(slug);
+    }
+  }
+};
+
+const page = ({params}) => {
+  const { slug } = params;
   return (
     <div className="relative z-50">
-      <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+      <div className="fixed inset-0 bg-gray-900 bg-opacity-100 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-screen h-screen overflow-hidden">
         <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-md p-3">
@@ -30,24 +44,24 @@ const DeleteDialog = ({ handleOpen, slug }) => {
                   Delete Blog
                 </h3>
                 <p className="text-base text-black mt-1 font-medium">
-                  Are you sure you want to delete your post? This data will be
-                  permanently deleted and cannot be recovered later.
+                  You are about to permanently delete this post. This
+                  action cannot be reversed and data will be lost forever.
                 </p>
               </div>
             </div>
             <div className="flex flex-row-reverse gap-4 sm:gap-6 font-semibold text-sm text-center">
               <button
-                onClick={() => {deletePost(slug),handleOpen()}}
+                onClick={() => deletePost(slug)}
                 className="w-full rounded-md bg-red-600 px-3 py-2 text-white hover:bg-red-700 sm:w-auto sm:px-5 "
               >
                 Confirm
               </button>
-              <button
-                onClick={handleOpen}
+              <Link
+                href={"/profile"}
                 className="w-full rounded-md px-3 py-2 text-red-600 border-2 border-gray-400 hover:bg-gray-200 sm:w-auto sm:px-5"
               >
                 Cancel
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -56,4 +70,4 @@ const DeleteDialog = ({ handleOpen, slug }) => {
   );
 };
 
-export default DeleteDialog;
+export default page;

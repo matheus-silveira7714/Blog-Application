@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
-import { deleteOldFile } from "@/utils/helper";
 
 const getData = async () => {
   try {
@@ -20,22 +19,10 @@ const getData = async () => {
   }
 };
 
-export const deletePost = async (slug) => {
-  if (slug) {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${slug}`,
-      { method: "DELETE" }
-    );
-    if(res.ok) await deleteOldFile(slug);
-  }
-};
-
 const page = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [data, setData] = useState([]);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,12 +64,7 @@ const page = () => {
       {data?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 xl:gap-7">
           {data?.map((item) => (
-            <BlogCard
-              key={item.id}
-              item={item}
-              open={open}
-              handleOpen={handleOpen}
-            />
+            <BlogCard key={item.id} item={item} />
           ))}
         </div>
       ) : (

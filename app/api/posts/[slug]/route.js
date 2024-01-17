@@ -59,16 +59,15 @@ export const DELETE = async (req, { params }) => {
   }
   try {
     const { slug } = params;
-    const post = await prisma.post.findUnique({
+    const post = await prisma.post.findFirst({
       where: { slug, userEmail: session.user.email },
-      include: { comments: true },
     });
     if (!post) {
       return NextResponse.json("Post not found!", { status: 404 });
     }
     await prisma.$transaction([
-    prisma.comment.deleteMany({ where: { postSlug: slug } }),
-    prisma.post.delete({ where: { slug, userEmail: session.user.email } }),
+      prisma.comment.deleteMany({ where: { postSlug: slug } }),
+      prisma.post.delete({ where: { slug, userEmail: session.user.email } }),
     ]);
     return NextResponse.json("Post deleted successfully", { status: 200 });
   } catch (err) {
