@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
+import { deleteOldFile } from "@/utils/helper";
 
 const getData = async () => {
   try {
@@ -21,10 +22,11 @@ const getData = async () => {
 
 export const deletePost = async (slug) => {
   if (slug) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${slug}`, {
-      method: "DELETE",
-    });
-    console.log(await res.json())
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${slug}`,
+      { method: "DELETE" }
+    );
+    if(res.ok) await deleteOldFile(slug);
   }
 };
 

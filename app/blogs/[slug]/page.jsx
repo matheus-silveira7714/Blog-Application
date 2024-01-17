@@ -47,7 +47,7 @@ const page = async ({ params }) => {
   return (
     <>
       <div className="w-full">
-        <div className="flex w-full flex-col-reverse sm:flex-row sm:items-center gap-4 lg:gap-4 xl:gap-10 pt-2 lg:pt-4">
+        <div className="flex w-full flex-col-reverse sm:flex-row sm:items-center gap-4 lg:gap-4 xl:gap-10 lg:pt-4">
           <div className="flex-1 flex flex-col lg:flex-col gap-5 sm:gap-3 lg:gap-7 xl:gap-10">
             <h1 className="text-3xl sm:text-xl md:text-2xl lg:text-4xl font-semibold">
               {blog.title}

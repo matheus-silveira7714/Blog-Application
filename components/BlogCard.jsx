@@ -3,11 +3,14 @@ import Link from "next/link";
 import React from "react";
 import { format } from "date-fns";
 import DeleteDialog from "./DeleteDialog";
+import { MdDelete } from "react-icons/md";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { BiSolidPencil } from "react-icons/bi";
 
 const BlogCard = ({ item, open, handleOpen }) => {
   return (
     <div className="flex flex-col max-w-2xl gap-3 mb-5">
-      <div className="sm:h-[225px] lg:h-[225px] group overflow-hidden rounded-lg">
+      <div className="sm:h-[225px] group overflow-hidden rounded-lg">
         <Image
           src={item?.image}
           alt={item?.title}
@@ -29,7 +32,7 @@ const BlogCard = ({ item, open, handleOpen }) => {
         </div>
         <Link href={`/blogs/${item?.slug}`}>
           <h1 className="text-xl md:text-base lg:text-2xl font-bold">
-            {item?.title?.substring(0, 60) + "..."}
+            {item?.title?.substring(0, 50) + "..."}
           </h1>
         </Link>
         <div
@@ -41,21 +44,24 @@ const BlogCard = ({ item, open, handleOpen }) => {
                 : item?.desc,
           }}
         />
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between mx-8 text-sm sm:text-base font-medium">
           <Link
             href={`/blogs/${item?.slug}`}
-            className="py-[2px] w-fit text-sm lg:text-base border-b-2 border-rose-600 textColor"
+            className=" textColor flex gap-2 items-center"
           >
-            View
+            <FaExternalLinkAlt size={17} /> View
           </Link>
           <Link
             href={`/blogs/${item.slug}/edit`}
-            className="text-green-500 px-2"
+            className="text-cyan-600 flex gap-1 items-center"
           >
-            Edit
+            <BiSolidPencil size={20} /> Edit
           </Link>
-          <button className="text-red-500 px-2" onClick={handleOpen}>
-            Delete
+          <button
+            className="text-red-500 flex gap-1 items-center"
+            onClick={handleOpen}
+          >
+            <MdDelete size={19} /> Delete
           </button>
           {open && <DeleteDialog handleOpen={handleOpen} slug={item.slug} />}
         </div>

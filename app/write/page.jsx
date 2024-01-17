@@ -8,10 +8,13 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loading from "@/components/Loading";
 import { createSlug, handleFileUpload } from "@/utils/helper";
+import { toast } from "react-toastify";
 
 const getData = async () => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/categories`
+    );
     const data = await res.json();
     if (res.ok) return data;
     else throw new Error("Unable to get categories");
@@ -56,21 +59,28 @@ const page = () => {
   }
 
   const handleSubmit = async () => {
-    try {
-      const imageUrl = await handleFileUpload(file, slug);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts`, {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          desc,
-          image: imageUrl,
-          slug: createSlug(title),
-          catSlug,
-        }),
-      });
-      if (res.ok) router.push("/");
-    } catch (error) {
-      console.error("Error uploading blog:", error);
+    if (!title || !desc || !file || !catSlug) {
+      toast.error("All fields are required");
+    } else {
+      try {
+        const imageUrl = await handleFileUpload(file, slug);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              title,
+              desc,
+              image: imageUrl,
+              slug: createSlug(title),
+              catSlug,
+            }),
+          }
+        );
+        if (res.ok) router.push("/");
+      } catch (error) {
+        console.error("Error uploading blog:", error);
+      }
     }
   };
 
@@ -114,15 +124,16 @@ const page = () => {
             >
               Select Category
             </option>
-            {data?.length>0 && data?.map((item) => (
-              <option
-                key={item.id}
-                value={item.title}
-                className="text-center p-4 textColor bgColor capitalize"
-              >
-                {item.title}
-              </option>
-            ))}
+            {data?.length > 0 &&
+              data?.map((item) => (
+                <option
+                  key={item.id}
+                  value={item.title}
+                  className="text-center p-4 textColor bgColor capitalize"
+                >
+                  {item.title}
+                </option>
+              ))}
           </select>
         </div>
         <div className="w-[100%] flex-1 textColor">

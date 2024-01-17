@@ -29,7 +29,7 @@ const DeleteDialog = ({ handleOpen, slug }) => {
                 <h3 className="text-lg font-semibold leading-6 text-red-500">
                   Delete Blog
                 </h3>
-                <p className="text-base text-black mt-1 font-normal">
+                <p className="text-base text-black mt-1 font-medium">
                   Are you sure you want to delete your post? This data will be
                   permanently deleted and cannot be recovered later.
                 </p>
@@ -44,7 +44,7 @@ const DeleteDialog = ({ handleOpen, slug }) => {
               </button>
               <button
                 onClick={handleOpen}
-                className="w-full rounded-md px-3 py-2 text-red-600 border-2 border-gray-300 sm:w-auto sm:px-5"
+                className="w-full rounded-md px-3 py-2 text-red-600 border-2 border-gray-400 hover:bg-gray-200 sm:w-auto sm:px-5"
               >
                 Cancel
               </button>

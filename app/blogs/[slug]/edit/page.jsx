@@ -7,7 +7,7 @@ import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loading from "@/components/Loading";
-import { createSlug, handleFileUpload } from "@/utils/helper";
+import { createSlug, deleteOldFile, handleFileUpload } from "@/utils/helper";
 
 const getAllCategories = async () => {
   try {
@@ -86,8 +86,11 @@ const page = ({ params }) => {
 
   const handleSubmit = async () => {
     try {
-      const imageUrl = file ? await handleFileUpload(file, slug) : image;
-      console.log({ title, desc, imageUrl, slug, catSlug });
+      let imageUrl = image;
+      if (file) {
+        imageUrl = await handleFileUpload(file, slug);
+        await deleteOldFile(params.slug);
+      }
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/posts/${params.slug}`,
         {

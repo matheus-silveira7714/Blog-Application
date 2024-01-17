@@ -128,9 +128,9 @@ const Comments = ({ postSlug }) => {
               </div>
               <p>{item.desc}</p>
               {session?.user?.email === item.user?.email && (
-                <div className="w-fit flex gap-7 items-center text-sm text-start text-cyan-600 ">
+                <div className="w-fit flex gap-7 items-center text-sm text-start text-cyan-600 font-medium ">
                   <button onClick={() => handleEdit(item)}>edit</button>
-                  <button onClick={() => handleDelete(item.id)}>delete</button>
+                  <button onClick={() => handleDelete(item.id)} className="text-red-500">delete</button>
                 </div>
               )}
             </div>
