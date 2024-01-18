@@ -14,7 +14,7 @@ export const metadata = {
     description: "Uncover fresh perspectives, stay informed and engage in lively discussions effortlessly.",
     url: process.env.NEXTAUTH_URL,
     type: "website",
-    authors: ["Vijay Kumar"],
+    authors: ["Vijay Kumar Reddy"],
     siteName: "Blog App",
   },
   twitter: {
@@ -22,6 +22,7 @@ export const metadata = {
     title: "Blog App",
     description: "Uncover fresh perspectives, stay informed and engage in lively discussions effortlessly.",
   },
+  metadataBase: new URL(process.env.NEXTAUTH_URL),
 };
 
 export default function RootLayout({ children }) {

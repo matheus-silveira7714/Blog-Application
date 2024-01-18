@@ -21,12 +21,13 @@ const getData = async (slug) => {
 export async function generateMetadata({ params }) {
   const { slug } = params;
   const blog = await getData(slug);
+  const description = getPlainText(blog?.desc || "").substring(0,120) + "...";
   return {
     title: blog?.title,
-    description: getPlainText(blog?.desc?.substring(0, 100) || ""),
+    description: description,
     openGraph: {
       title: blog?.title,
-      description: blog?.desc?.substring(0, 100),
+      description: description,
       url: `${process.env.NEXTAUTH_URL}/blogs/${slug}`,
       type: "article",
       authors: [blog?.user?.name],
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: blog?.title,
-      description: getPlainText(blog?.desc?.substring(0, 100) || ""),
+      description: description,
       images: [blog?.image],
     },
   };
