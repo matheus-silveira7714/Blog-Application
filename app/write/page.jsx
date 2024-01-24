@@ -7,7 +7,7 @@ import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loading from "@/components/Loading";
-import { createSlug, handleFileUpload } from "@/utils/helper";
+import { createSlug, handleFileUpload, modules, toolbarOptions } from "@/utils/helper";
 import { toast } from "react-toastify";
 
 const getData = async () => {
@@ -138,6 +138,7 @@ const page = () => {
         </div>
         <div className="w-[100%] flex-1 textColor">
           <ReactQuill
+            modules={modules}
             theme="snow"
             value={desc}
             onChange={setDesc}
