@@ -14,7 +14,7 @@ export const metadata = {
     description: "Uncover fresh perspectives, stay informed and engage in lively discussions effortlessly.",
     url: process.env.NEXTAUTH_URL,
     type: "website",
-    authors: ["Vijay Kumar Reddy"],
+    authors: ["Matheus Silveira"],
     siteName: "Blog App",
   },
   twitter: {
